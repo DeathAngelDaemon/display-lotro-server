@@ -31,7 +31,12 @@ Please follow these instructions to install the plugin correctly.
 
 ### Frequently Asked Questions
 
-There are no questions yet.
+#### How to use the shortcode?
+You can use the shortcode `lotroserver` without any attributes to show all the servers you have checked in the configuration in one list.
+Since release 0.9.7 you can add the attribute 'loc' to the shortcode. The attribute stands for 'location' and can have two different values: 'eu' or 'us'. If you don't insert any value, it will be handled like there were no attribute 'loc'.
+
+Example: `[lotroserver loc="us"]`
+This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
 
