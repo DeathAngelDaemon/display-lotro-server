@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2013-08-20 14:03+0100\n"
-"PO-Revision-Date: 2013-08-20 14:03+0100\n"
+"POT-Creation-Date: 2013-08-20 15:01+0100\n"
+"PO-Revision-Date: 2013-08-20 15:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
@@ -93,15 +93,21 @@ msgid ""
 msgstr ""
 "Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
 
-#: ../display-lotro-server.php:591
+#: ../display-lotro-server.php:558
+msgid "There were no current server information found. Please try again later."
+msgstr ""
+"Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren "
+"Sie später nochmal."
+
+#: ../display-lotro-server.php:599
 msgid "Shows a configured list of Lotro servers"
 msgstr "Zeigt eine Liste (konfigurierter) Lotro-Server"
 
-#: ../display-lotro-server.php:642
+#: ../display-lotro-server.php:650
 msgid "Lotro server list"
 msgstr "LotRO Serverliste"
 
-#: ../display-lotro-server.php:646
+#: ../display-lotro-server.php:654
 msgid "Title:"
 msgstr "Titel:"
 

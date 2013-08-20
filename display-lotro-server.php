@@ -546,16 +546,16 @@ class DisplayLotroServer {
 			foreach( $xml as $server ) {
 				# the number 2 stands for the status online
 				if( $server->status == 2 ) {
-					$listoutput .= '<li>'.$server->name.' (<img src="'.self::getPluginURL().'img/up.png" alt="arrow up for online" />)</li>';
+					$listoutput .= '<li>'.$server->name.' (<img src="'.self::getPluginURL().'img/up.png" alt="online" />)</li>';
 				} else {
-					$listoutput .= '<li>'.$server->name.' (<img src="'.self::getPluginURL().'img/down.png" alt="arrow down for offline" />)</li>';
+					$listoutput .= '<li>'.$server->name.' (<img src="'.self::getPluginURL().'img/down.png" alt="offline" />)</li>';
 				}
 			}
 			$listoutput .= '</ul>';
 
 			return $listoutput;
 		} else {
-			return 'Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren Sie sp&auml;ter nochmal.';
+			return __('There were no current server information found. Please try again later.', 'DLSlanguage');
 		}
 	}
 
@@ -664,4 +664,4 @@ add_action( 'widgets_init', create_function('', 'return register_widget("LotroSe
 /* start the plugin */
 new DisplayLotroServer;
 
-?>
+ ?>
