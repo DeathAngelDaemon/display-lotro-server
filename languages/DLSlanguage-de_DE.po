@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
 "POT-Creation-Date: 2013-08-20 15:01+0100\n"
-"PO-Revision-Date: 2013-08-20 15:01+0100\n"
+"PO-Revision-Date: 2013-08-20 15:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
@@ -105,7 +105,7 @@ msgstr "Zeigt eine Liste (konfigurierter) Lotro-Server"
 
 #: ../display-lotro-server.php:650
 msgid "Lotro server list"
-msgstr "LotRO Serverliste"
+msgstr "HdRO Serverliste"
 
 #: ../display-lotro-server.php:654
 msgid "Title:"
