@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2013-08-05 15:13+0100\n"
-"PO-Revision-Date: 2013-08-05 15:14+0100\n"
+"POT-Creation-Date: 2013-08-20 14:03+0100\n"
+"PO-Revision-Date: 2013-08-20 14:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
@@ -15,41 +15,43 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:69
-msgid "Sorry, but you can't run this plugin, it requires PHP 5.2 or higher."
+#: ../display-lotro-server.php:73
+msgid ""
+"Sorry, but you can't run this plugin, it requires PHP 5.2 or higher and "
+"Wordpress version 3.4.2 or higher."
 msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.2 oder "
-"höher."
+"höher und Wordpress-Version 3.4.2 oder höher."
 
-#: ../display-lotro-server.php:101
+#: ../display-lotro-server.php:102
 msgid "installed"
 msgstr "installiert"
 
-#: ../display-lotro-server.php:103
+#: ../display-lotro-server.php:104
 msgid "Please update your configuration and choose the servers"
 msgstr "Bitte aktualisiere deine Konfiguration und wähle die Server"
 
-#: ../display-lotro-server.php:105 ../display-lotro-server.php:133
+#: ../display-lotro-server.php:105 ../display-lotro-server.php:134
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ../display-lotro-server.php:107
+#: ../display-lotro-server.php:108
 msgid "Important"
 msgstr "Wichtig"
 
-#: ../display-lotro-server.php:147
+#: ../display-lotro-server.php:148
 msgid "Settings: Display Lotro Server"
 msgstr "Einstellungen: Display Lotro Server"
 
-#: ../display-lotro-server.php:147
+#: ../display-lotro-server.php:148
 msgid "Display Lotro Server"
 msgstr "Display Lotro Server"
 
-#: ../display-lotro-server.php:163
+#: ../display-lotro-server.php:164
 msgid "Display Lotro Server: Settings"
 msgstr "Display Lotro Server: Einstellungen"
 
-#: ../display-lotro-server.php:165
+#: ../display-lotro-server.php:166
 msgid ""
 "On this page you can do change the settings for displaying your desired "
 "servers."
@@ -65,29 +67,33 @@ msgstr "Einstellungen zurücksetzen"
 msgid "The settings are set back to default."
 msgstr "Die Einstellungen wurden zurückgesetzt."
 
-#: ../display-lotro-server.php:222
+#: ../display-lotro-server.php:205
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: ../display-lotro-server.php:217
 msgid "EU Server Settings"
 msgstr "EU Server Einstellungen"
 
-#: ../display-lotro-server.php:274
+#: ../display-lotro-server.php:269
 msgid "US Server Settings"
 msgstr "US Server Einstellungen"
 
-#: ../display-lotro-server.php:299
+#: ../display-lotro-server.php:294
 msgid ""
 "Choose from the given EU servers below your favourite ones. These are "
 "displayed in the frontend."
 msgstr ""
 "Wählt hier aus den aktuellen EU-Servern, die ihr anzeigen lassen möchtet."
 
-#: ../display-lotro-server.php:381
+#: ../display-lotro-server.php:376
 msgid ""
 "Choose from the given US servers below your favourite ones. These are "
 "displayed in the frontend."
 msgstr ""
 "Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
 
-#: ../display-lotro-server.php:589
+#: ../display-lotro-server.php:591
 msgid "Shows a configured list of Lotro servers"
 msgstr "Zeigt eine Liste (konfigurierter) Lotro-Server"
 
