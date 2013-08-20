@@ -65,10 +65,11 @@ class DisplayLotroServer {
 	* Activation of the plugin
 	*
 	* @since 0.1
+	* @version 0.9.7
 	**/
 	function activate(){
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.2.0', '<') && version_compare($wp_version, '3.4.2', '>')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.4.2', '>')) {
 			deactivate_plugins($this->plugin_name); // Deactivate ourself
 			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.2 or higher and Wordpress version 3.4.2 or higher.'));
 			return;
