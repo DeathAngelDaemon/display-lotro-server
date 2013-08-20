@@ -521,14 +521,18 @@ class DisplayLotroServer {
 			}
 		}
 
-		if($location === 'eu') {
-			foreach($serverarray as $key => $value) {
-				if(in_array($value, self::$serverslistUS)) unset( $serverarray[$key] );
-			}
-		} 
-		if($location === 'us') {
-			foreach($serverarray as $key => $value) {
-				if(in_array($value, self::$serverslistEU)) unset( $serverarray[$key] );
+		if($location !== 'all') {
+			switch($location) {
+				case 'eu':
+					foreach($serverarray as $key => $value) {
+						if(in_array($value, self::$serverslistUS)) unset( $serverarray[$key] );
+					}
+				break;
+				case 'us':
+					foreach($serverarray as $key => $value) {
+						if(in_array($value, self::$serverslistEU)) unset( $serverarray[$key] );
+					}
+				break;
 			}
 		}
 
@@ -567,7 +571,7 @@ class DisplayLotroServer {
 
 		/* 
 		 * extract the attributes into variables
-		 * loc = can be 'eu' for the checked EU servers
+		 * loc = can be 'eu' or 'us' to show the specified serves
 		 */
 		extract(shortcode_atts(array(
 			'loc' => 'all'
