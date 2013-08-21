@@ -4,7 +4,7 @@
  * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
  * Description: Displays a server list of the configured servers (see the settings). Can be placed as a widget or a shortcode in every article or page. This plugin uses the status-script from http://status.warriorsofnargathrond.com
  *
- * Version: 0.9.7
+ * Version: 0.9.8
  *
  * Author: Anna Fischer
  * Author URI: http://hdroblog.anna-fischer.info/
@@ -35,7 +35,7 @@ class DisplayLotroServer {
 	* Constructor
 	*
 	* @since 0.1
-	* @version 0.9.6
+	* @version 0.9.8
 	**/
 	function __construct() {
 		self::constants();
@@ -65,7 +65,7 @@ class DisplayLotroServer {
 	/**
     * Defines constants used by the plugin
     *
-    * @since 0.9.7
+    * @since 0.9.8
     */
     function constants() {
         define( 'DLS_VERSION', '0.9.7' );
@@ -81,7 +81,7 @@ class DisplayLotroServer {
 	* Activation of the plugin
 	*
 	* @since 0.1
-	* @version 0.9.7
+	* @version 0.9.8
 	**/
 	function activate() {
 		global $wp_version;
@@ -113,6 +113,7 @@ class DisplayLotroServer {
 	* Send a message after installing/updating
 	*
 	* @since 0.1
+	* @version 0.9.8
 	*/
 	function updateMessage() {
 		# success message after installation
@@ -130,7 +131,7 @@ class DisplayLotroServer {
 	*
 	* @see http://wpengineer.com/1295/meta-links-for-wordpress-plugins/
 	* @since 0.5
-	* @version 0.9.6
+	* @version 0.9.8
 	*/
 	function set_plugin_meta($links, $file) {
 	
@@ -149,7 +150,7 @@ class DisplayLotroServer {
 	* Adds an option page for configuration
 	*
 	* @since 0.1
-	* @version 0.9.6
+	* @version 0.9.8
 	**/
 	function buildAdminMenu() {
 		$intOptionsPage = add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server', array( 'LotroServerGUI', 'showAdminPage' ) );
@@ -269,7 +270,7 @@ class DisplayLotroServer {
 /**
 * Function to register the Widget
 *
-* @since 0.9.7
+* @since 0.9.8
 */
 function lotroserver_register_widgets() {
 	register_widget( 'LotroServerWidget' );
