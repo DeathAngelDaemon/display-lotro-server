@@ -40,6 +40,21 @@ This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
 
+#### 0.9.8
+* Re-structured the code
+* Fixed wrong version comparison
+* Added choice of server location to the widget
+* Added security fixes
+* Updated translation
+* code cleanup
+
+#### 0.9.7
+* Added 'loc' attribute to the shortcode
+* Added first FAQ to the Readme
+* Bugfixes
+* Updated (german and missing) translation
+* Added/updated/translated some comments
+
 #### 0.9.6
 * Fixed some strict PHP Errors/Warnings
 * Tested compatibility for WP 3.6
