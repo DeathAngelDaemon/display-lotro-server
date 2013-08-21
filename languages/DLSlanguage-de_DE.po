@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2013-08-21 09:28+0100\n"
-"PO-Revision-Date: 2013-08-21 09:29+0100\n"
+"POT-Creation-Date: 2013-08-21 11:59+0100\n"
+"PO-Revision-Date: 2013-08-21 11:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:74
+#: ../display-lotro-server.php:89
 msgid ""
 "Sorry, but you can't run this plugin, it requires PHP 5.3 or higher and "
 "Wordpress version 3.4.2 or higher."
@@ -23,35 +23,71 @@ msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.3 oder "
 "höher und Wordpress-Version 3.4.2 oder höher."
 
-#: ../display-lotro-server.php:103
+#: ../display-lotro-server.php:118
 msgid "installed"
 msgstr "installiert"
 
-#: ../display-lotro-server.php:105
+#: ../display-lotro-server.php:120
 msgid "Please update your configuration and choose the servers"
 msgstr "Bitte aktualisiere deine Konfiguration und wähle die Server"
 
-#: ../display-lotro-server.php:106 ../display-lotro-server.php:135
+#: ../display-lotro-server.php:121 ../display-lotro-server.php:140
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ../display-lotro-server.php:109
+#: ../display-lotro-server.php:124
 msgid "Important"
 msgstr "Wichtig"
 
-#: ../display-lotro-server.php:149
+#: ../display-lotro-server.php:154
 msgid "Settings: Display Lotro Server"
 msgstr "Einstellungen: Display Lotro Server"
 
-#: ../display-lotro-server.php:149
+#: ../display-lotro-server.php:154
 msgid "Display Lotro Server"
 msgstr "Display Lotro Server"
 
-#: ../display-lotro-server.php:165
+#: ../display-lotro-server.php:240
+msgid "There were no current server information found. Please try again later."
+msgstr ""
+"Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren "
+"Sie später nochmal."
+
+#: ../dls-admin.php:27
+msgid "The settings are set back to default."
+msgstr "Die Einstellungen wurden zurückgesetzt."
+
+#: ../dls-admin.php:36
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: ../dls-admin.php:48
+msgid "EU Server Settings"
+msgstr "EU Server Einstellungen"
+
+#: ../dls-admin.php:100
+msgid "US Server Settings"
+msgstr "US Server Einstellungen"
+
+#: ../dls-admin.php:125
+msgid ""
+"Choose from the given EU servers below your favourite ones. These are "
+"displayed in the frontend."
+msgstr ""
+"Wählt hier aus den aktuellen EU-Servern, die ihr anzeigen lassen möchtet."
+
+#: ../dls-admin.php:207
+msgid ""
+"Choose from the given US servers below your favourite ones. These are "
+"displayed in the frontend."
+msgstr ""
+"Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
+
+#: ../dls-admin.php:319
 msgid "Display Lotro Server: Settings"
 msgstr "Display Lotro Server: Einstellungen"
 
-#: ../display-lotro-server.php:167
+#: ../dls-admin.php:321
 msgid ""
 "On this page you can do change the settings for displaying your desired "
 "servers."
@@ -59,67 +95,31 @@ msgstr ""
 "Hier k&ouml;nnt ihr Einstellungen zur gewünschten Server-Auflistung "
 "vornehmen."
 
-#: ../display-lotro-server.php:175
+#: ../dls-admin.php:329
 msgid "Set settings to default"
 msgstr "Einstellungen zurücksetzen"
 
-#: ../display-lotro-server.php:197
-msgid "The settings are set back to default."
-msgstr "Die Einstellungen wurden zurückgesetzt."
-
-#: ../display-lotro-server.php:206
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert."
-
-#: ../display-lotro-server.php:218
-msgid "EU Server Settings"
-msgstr "EU Server Einstellungen"
-
-#: ../display-lotro-server.php:270
-msgid "US Server Settings"
-msgstr "US Server Einstellungen"
-
-#: ../display-lotro-server.php:295
-msgid ""
-"Choose from the given EU servers below your favourite ones. These are "
-"displayed in the frontend."
-msgstr ""
-"Wählt hier aus den aktuellen EU-Servern, die ihr anzeigen lassen möchtet."
-
-#: ../display-lotro-server.php:377
-msgid ""
-"Choose from the given US servers below your favourite ones. These are "
-"displayed in the frontend."
-msgstr ""
-"Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
-
-#: ../display-lotro-server.php:559
-msgid "There were no current server information found. Please try again later."
-msgstr ""
-"Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren "
-"Sie später nochmal."
-
-#: ../display-lotro-server.php:600
+#: ../dls-widget.php:15
 msgid "Shows a configured list of Lotro servers"
 msgstr "Zeigt eine Liste (konfigurierter) Lotro-Server"
 
-#: ../display-lotro-server.php:652
+#: ../dls-widget.php:70
 msgid "Lotro server list"
 msgstr "HdRO Serverliste"
 
-#: ../display-lotro-server.php:656
+#: ../dls-widget.php:74
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../display-lotro-server.php:660
+#: ../dls-widget.php:78
 msgid "Only show servers from specific location"
 msgstr "Zeige nur die Server einer Region"
 
-#: ../display-lotro-server.php:662
+#: ../dls-widget.php:80
 msgid "EU server"
 msgstr "EU-Server"
 
-#: ../display-lotro-server.php:664
+#: ../dls-widget.php:83
 msgid "US server"
 msgstr "US-Server"
 
