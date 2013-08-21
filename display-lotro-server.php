@@ -69,9 +69,9 @@ class DisplayLotroServer {
 	**/
 	function activate(){
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.4.2', '>')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '>=') && version_compare($wp_version, '3.4.2', '>=')) {
 			deactivate_plugins($this->plugin_name); // Deactivate ourself
-			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.2 or higher and Wordpress version 3.4.2 or higher.'));
+			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.4.2 or higher.'));
 			return;
 		}
 
@@ -297,8 +297,8 @@ class DisplayLotroServer {
 		function server_check_anduin_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_anduin" name="lotroserver_choice_anduin" value="1" <?php checked($options['Anduin'], 1); ?> />
-					<?php
+				<input type="checkbox" id="choice_anduin" name="lotroserver_choice_anduin" value="1" <?php checked($options['Anduin'], 1); ?> />
+			<?php
 		}
 		function server_check_belegaer_callback() {
 			$options = get_option( self::$optiontag );
@@ -309,14 +309,14 @@ class DisplayLotroServer {
 		function server_check_gwaihir_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-						<input type="checkbox" id="choice_gwaihir" name="lotroserver_choice_gwaihir" value="1" <?php checked($options['Gwaihir'], 1); ?> />
-						<?php
+				<input type="checkbox" id="choice_gwaihir" name="lotroserver_choice_gwaihir" value="1" <?php checked($options['Gwaihir'], 1); ?> />
+			<?php
 		}
 		function server_check_maiar_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_maiar" name="lotroserver_choice_maiar" value="1" <?php checked($options['Maiar'], 1); ?> />
-					<?php
+				<input type="checkbox" id="choice_maiar" name="lotroserver_choice_maiar" value="1" <?php checked($options['Maiar'], 1); ?> />
+			<?php
 		}
 		function server_check_morthond_callback() {
 			$options = get_option( self::$optiontag );
@@ -339,38 +339,38 @@ class DisplayLotroServer {
 		function server_check_evernight_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_evernight" name="lotroserver_choice_evernight" value="1" <?php checked($options['Evernight'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_evernight" name="lotroserver_choice_evernight" value="1" <?php checked($options['Evernight'], 1); ?> />
+			<?php
 		}
 		function server_check_gilrain_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_gilrain" name="lotroserver_choice_gilrain" value="1" <?php checked($options['Gilrain'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_gilrain" name="lotroserver_choice_gilrain" value="1" <?php checked($options['Gilrain'], 1); ?> />
+			<?php
 		}
 		function server_check_laurelin_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_laurelin" name="lotroserver_choice_laurelin" value="1" <?php checked($options['Laurelin'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_laurelin" name="lotroserver_choice_laurelin" value="1" <?php checked($options['Laurelin'], 1); ?> />
+			<?php
 		}
 		function server_check_withywindle_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_withywindle" name="lotroserver_choice_withywindle" value="1" <?php checked($options['Withywindle'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_withywindle" name="lotroserver_choice_withywindle" value="1" <?php checked($options['Withywindle'], 1); ?> />
+			<?php
 		}
 		function server_check_sirannon_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_sirannon" name="lotroserver_choice_sirannon" value="1" <?php checked($options['Sirannon'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_sirannon" name="lotroserver_choice_sirannon" value="1" <?php checked($options['Sirannon'], 1); ?> />
+			<?php
 		}
 		function server_check_estel_callback() {
 			$options = get_option( self::$optiontag );
 			?>
-					<input type="checkbox" id="choice_estel" name="lotroserver_choice_estel" value="1" <?php checked($options['Estel'], 1); ?> />
-				<?php
+				<input type="checkbox" id="choice_estel" name="lotroserver_choice_estel" value="1" <?php checked($options['Estel'], 1); ?> />
+			<?php
 		}
 
 		function us_server_section_text() {
@@ -380,91 +380,91 @@ class DisplayLotroServer {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_arkenstone" name="lotroserver_choice_arkenstone" value="1" <?php checked($options['Arkenstone'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_brandywine_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_brandywine" name="lotroserver_choice_brandywine" value="1" <?php checked($options['Brandywine'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_crickhollow_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_crickhollow" name="lotroserver_choice_crickhollow" value="1" <?php checked($options['Crickhollow'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_dwarrowdelf_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_dwarrowdelf" name="lotroserver_choice_dwarrowdelf" value="1" <?php checked($options['Dwarrowdelf'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_elendilmir_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_elendilmir" name="lotroserver_choice_elendilmir" value="1" <?php checked($options['Elendilmir'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_firefoot_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_firefoot" name="lotroserver_choice_firefoot" value="1" <?php checked($options['Firefoot'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_gladden_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_gladden" name="lotroserver_choice_gladden" value="1" <?php checked($options['Gladden'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_imladris_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_imladris" name="lotroserver_choice_imladris" value="1" <?php checked($options['Imladris'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_landroval_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_landroval" name="lotroserver_choice_landroval" value="1" <?php checked($options['Landroval'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_meneldor_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_meneldor" name="lotroserver_choice_meneldor" value="1" <?php checked($options['Meneldor'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_nimrodel_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_nimrodel" name="lotroserver_choice_nimrodel" value="1" <?php checked($options['Nimrodel'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_riddermark_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_riddermark" name="lotroserver_choice_riddermark" value="1" <?php checked($options['Riddermark'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_silverlode_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_silverlode" name="lotroserver_choice_silverlode" value="1" <?php checked($options['Silverlode'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_vilya_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_vilya" name="lotroserver_choice_vilya" value="1" <?php checked($options['Vilya'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_windfola_callback() {
 			$options = get_option( self::$optiontag );
 			?>
 				<input type="checkbox" id="choice_windfola" name="lotroserver_choice_windfola" value="1" <?php checked($options['Windfola'], 1); ?> />
-				<?php
+			<?php
 		}
 		function server_check_bullroarer_callback() {
 			$options = get_option( self::$optiontag );
