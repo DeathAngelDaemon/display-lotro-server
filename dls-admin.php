@@ -8,7 +8,7 @@ if ( ! class_exists('DisplayLotroServer') ) {
 /**
 * GUI for the DLS Adminpage
 *
-* @since 0.9.7
+* @since 0.9.8
 */
 class LotroServerGUI extends DisplayLotroServer {
 
@@ -16,7 +16,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	* Saves all changes on the configuration
 	*
 	* @since 0.1
-	* @version 0.9.7
+	* @version 0.9.8
 	*/
 	public function saveSettings() {
 
@@ -47,7 +47,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	* Initialize certain admin functions and sets the checkboxes for the configuration page.
 	*
 	* @since 0.1
-	* @version 0.9.6
+	* @version 0.9.8
 	**/
 	public function lotroserver_admin_init() {
 		add_settings_section('lotroserver_eu_options', __('EU Server Settings', 'DLSlanguage'),  array( 'LotroServerGUI', 'eu_server_section_text' ), 'serversection');
@@ -124,7 +124,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	   	* The Callbacks for the checkboxes and text.
 	   	*
 		* @since 0.1
-		* @version 0.9.7
+		* @version 0.9.8
 	   	*/
 		static function eu_server_section_text() {
 			echo __('Choose from the given EU servers below your favourite ones. These are displayed in the frontend.', 'DLSlanguage');
@@ -312,7 +312,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	* Load the HTML for the admin page
 	*
 	* @since 0.1
-	* @version 0.9.6
+	* @version 0.9.8
 	**/
 	public function showAdminPage() {
 ?>
