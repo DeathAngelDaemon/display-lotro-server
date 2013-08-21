@@ -19,6 +19,11 @@ class LotroServerGUI extends DisplayLotroServer {
 	* @version 0.9.7
 	*/
 	public function saveSettings() {
+
+		if ( empty($_POST) && !check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) ) {
+			wp_die('No form successful transmitted.');
+		}
+
 		# Update Settings on Save
 		if( $_POST['action'] == 'save_serveroptions' ) {
 			$options = get_option(parent::$optiontag);
@@ -320,6 +325,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	<?php settings_errors(); ?>
 	<?php echo __( 'On this page you can do change the settings for displaying your desired servers.', 'DLSlanguage' ); ?>
 	<form method="post" action="">
+		<?php wp_nonce_field( 'save_serveroptions', '_wpnonce-lotroserver' ); ?>
 		<?php settings_fields('serversection'); ?>
 	    <?php do_settings_sections('serversection'); ?>
 	    <br />
