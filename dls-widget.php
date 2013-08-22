@@ -27,7 +27,11 @@ class LotroServerWidget extends WP_Widget {
 		global $options;
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$attr_loc = (!empty($instance['loc_eu']) && !empty($instance['loc_us'])) ? 'all' : (!empty($instance['loc_eu']) ? 'eu' : (empty($instance['loc_us']) ?: 'us'));
+		$leu = isset( $instance['loc_eu'] ) ? $instance['loc_eu'] : false; 
+		$lus = isset( $instance['loc_us'] ) ? $instance['loc_us'] : false; 
+		$attr_loc = (empty($leu) && empty($lus) || !empty($leu) && !empty($lus)) ? 'all' 
+					: (!empty($instance['loc_eu']) ? 'eu' 
+					: (empty($instance['loc_us']) ?: 'us'));
 
 		echo $before_widget;
 		if ( ! empty( $title ) )
