@@ -40,8 +40,8 @@ class DisplayLotroServer {
 	function __construct() {
 		self::constants();
 
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		register_uninstall_hook( __FILE__, array( $this, 'uninstall' ) );
+		register_activation_hook( __FILE__, 'activate' );
+		register_uninstall_hook( __FILE__, 'uninstall' );
 
 		// Add different admin settings and admin menu
 		add_action( 'admin_init', array( 'LotroServerGUI', 'lotroserver_admin_init') );
@@ -85,7 +85,7 @@ class DisplayLotroServer {
 	**/
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '>=') && version_compare($wp_version, '3.4.2', '>=')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.4.2', '<')) {
 			deactivate_plugins(DLS_PLUGIN_NAME); // Deactivate ourself
 			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.4.2 or higher.'));
 			return;
