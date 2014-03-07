@@ -14,18 +14,12 @@ class LotroServerGUI extends DisplayLotroServer {
 
 	/**
 	* Saves all changes on the configuration
-	*
-	* @since 0.1
-	* @version 0.9.8
 	*/
-	public static function saveSettings() {
+	static function saveSettings() {
 
 		if ( empty($_POST) && !check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) ) {
 			wp_die('No form successful transmitted.');
-		}
-
-		# Update Settings on Save
-		if( $_POST['action'] == 'save_serveroptions' ) {
+		} else {
 			$options = get_option(parent::$optiontag);
 			if (!empty($_POST['lotroserver_useDefaults'])) {
 				delete_option('lotroserver_options');
@@ -43,15 +37,16 @@ class LotroServerGUI extends DisplayLotroServer {
 				$_POST['notice'] = __( 'Settings saved.', 'DLSlanguage' );
 			}
 		}
+
 	}
 
 	/**
 	* Initialize certain admin functions and sets the checkboxes for the configuration page.
-	*
-	* @since 0.1
-	* @version 0.9.8
 	**/
-	public static function lotroserver_admin_init() {
+	static function lotroserver_admin_init() {
+		add_settings_section('lotroserver_shortcode_options', __('Shortcode', 'DLSlanguage'),  array( 'LotroServerGUI', 'shortcode_section_text' ), 'serversection');
+			add_settings_field(	'choice_shortcode', __( 'Do you want to use the shortcode for posts and pages?', 'DLSlanguage' ), array( 'LotroServerGUI', 'check_shortcode_callback' ), 'serversection', 'lotroserver_shortcode_options', array( 'label_for' => 'choice_shortcode' ) );
+
 		add_settings_section('lotroserver_eu_options', __('EU Server Settings', 'DLSlanguage'),  array( 'LotroServerGUI', 'eu_server_section_text' ), 'serversection');
 		foreach(parent::$serverslistEU as $servername) {
 			if( in_array($servername, parent::$serverDE) ) {
@@ -124,10 +119,16 @@ class LotroServerGUI extends DisplayLotroServer {
 
 		/**
 	   	* The Callbacks for the checkboxes and text.
-	   	*
-		* @since 0.1
-		* @version 0.9.8
 	   	*/
+	   	static function shortcode_section_text() {
+			echo __('Decide to use the shortcode or not.', 'DLSlanguage');
+		}
+		static function check_shortcode_callback() {
+			$options = get_option( parent::$optiontag );
+			?>
+				<input type="checkbox" id="choice_shortcode" name="lotroserver_choice_shortcode" value="1" <?php if(isset($options['Shortcode'])) checked($options['Shortcode'], 1); ?> />
+			<?php
+		}
 		static function eu_server_section_text() {
 			echo __('Choose from the given EU servers below your favourite ones. These are displayed in the frontend.', 'DLSlanguage');
 		}
@@ -312,11 +313,8 @@ class LotroServerGUI extends DisplayLotroServer {
 
 	/**
 	* Load the HTML for the admin page
-	*
-	* @since 0.1
-	* @version 0.9.8
 	**/
-	public static function showAdminPage() {
+	static function showAdminPage() {
 ?>
 <div class="wrap">
 		<?php
