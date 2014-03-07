@@ -67,12 +67,9 @@ class LotroServerWidget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
-		}
-		else {
-			$title = __('Lotro server list', 'DLSlanguage');
-		}
+		$title = (isset($instance['title'])) ? $instance['title'] : __('Lotro server list', 'DLSlanguage');
+		$locEU = (isset($instance['loc_eu'])) ? $instance['loc_eu'] : 0;
+		$locUS = (isset($instance['loc_us'])) ? $instance['loc_us'] : 0;
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'DLSlanguage' ); ?></label>
