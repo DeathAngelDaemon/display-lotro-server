@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2013-08-21 11:59+0100\n"
-"PO-Revision-Date: 2013-08-21 11:59+0100\n"
+"POT-Creation-Date: 2014-03-07 10:15+0100\n"
+"PO-Revision-Date: 2014-03-07 10:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:89
+#: ../display-lotro-server.php:91
 msgid ""
 "Sorry, but you can't run this plugin, it requires PHP 5.3 or higher and "
 "Wordpress version 3.4.2 or higher."
@@ -23,71 +23,59 @@ msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.3 oder "
 "höher und Wordpress-Version 3.4.2 oder höher."
 
-#: ../display-lotro-server.php:118
-msgid "installed"
-msgstr "installiert"
-
-#: ../display-lotro-server.php:120
-msgid "Please update your configuration and choose the servers"
-msgstr "Bitte aktualisiere deine Konfiguration und wähle die Server"
-
-#: ../display-lotro-server.php:121 ../display-lotro-server.php:140
+#: ../display-lotro-server.php:111
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ../display-lotro-server.php:124
-msgid "Important"
-msgstr "Wichtig"
-
-#: ../display-lotro-server.php:154
+#: ../display-lotro-server.php:122
 msgid "Settings: Display Lotro Server"
 msgstr "Einstellungen: Display Lotro Server"
 
-#: ../display-lotro-server.php:154
+#: ../display-lotro-server.php:122
 msgid "Display Lotro Server"
 msgstr "Display Lotro Server"
 
-#: ../display-lotro-server.php:240
+#: ../display-lotro-server.php:206
 msgid "There were no current server information found. Please try again later."
 msgstr ""
 "Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren "
 "Sie später nochmal."
 
-#: ../dls-admin.php:27
+#: ../dls-admin.php:29
 msgid "The settings are set back to default."
 msgstr "Die Einstellungen wurden zurückgesetzt."
 
-#: ../dls-admin.php:36
+#: ../dls-admin.php:40
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: ../dls-admin.php:48
+#: ../dls-admin.php:49
 msgid "EU Server Settings"
 msgstr "EU Server Einstellungen"
 
-#: ../dls-admin.php:100
+#: ../dls-admin.php:101
 msgid "US Server Settings"
 msgstr "US Server Einstellungen"
 
-#: ../dls-admin.php:125
+#: ../dls-admin.php:123
 msgid ""
 "Choose from the given EU servers below your favourite ones. These are "
 "displayed in the frontend."
 msgstr ""
 "Wählt hier aus den aktuellen EU-Servern, die ihr anzeigen lassen möchtet."
 
-#: ../dls-admin.php:207
+#: ../dls-admin.php:205
 msgid ""
 "Choose from the given US servers below your favourite ones. These are "
 "displayed in the frontend."
 msgstr ""
 "Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
 
-#: ../dls-admin.php:319
+#: ../dls-admin.php:314
 msgid "Display Lotro Server: Settings"
 msgstr "Display Lotro Server: Einstellungen"
 
-#: ../dls-admin.php:321
+#: ../dls-admin.php:316
 msgid ""
 "On this page you can do change the settings for displaying your desired "
 "servers."
@@ -95,7 +83,7 @@ msgstr ""
 "Hier k&ouml;nnt ihr Einstellungen zur gewünschten Server-Auflistung "
 "vornehmen."
 
-#: ../dls-admin.php:329
+#: ../dls-admin.php:325
 msgid "Set settings to default"
 msgstr "Einstellungen zurücksetzen"
 
@@ -107,21 +95,30 @@ msgstr "Zeigt eine Liste (konfigurierter) Lotro-Server"
 msgid "Lotro server list"
 msgstr "HdRO Serverliste"
 
-#: ../dls-widget.php:74
+#: ../dls-widget.php:75
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../dls-widget.php:78
+#: ../dls-widget.php:79
 msgid "Only show servers from specific location"
 msgstr "Zeige nur die Server einer Region"
 
-#: ../dls-widget.php:80
+#: ../dls-widget.php:81
 msgid "EU server"
 msgstr "EU-Server"
 
-#: ../dls-widget.php:83
+#: ../dls-widget.php:84
 msgid "US server"
 msgstr "US-Server"
+
+#~ msgid "installed"
+#~ msgstr "installiert"
+
+#~ msgid "Please update your configuration and choose the servers"
+#~ msgstr "Bitte aktualisiere deine Konfiguration und wähle die Server"
+
+#~ msgid "Important"
+#~ msgstr "Wichtig"
 
 #~ msgid "Cheating uh?"
 #~ msgstr "Austricksen gilt nicht ;)"
