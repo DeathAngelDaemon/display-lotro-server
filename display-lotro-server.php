@@ -16,6 +16,8 @@
 require_once('dls-widget.php');
 require_once('dls-admin.php');
 
+add_action('init', array('DisplayLotroServer', 'init'));
+
 class DisplayLotroServer {
 
 	public static
@@ -31,25 +33,19 @@ class DisplayLotroServer {
 			'shortcode' => true
 		);
 
+	public static function init() {
+		new self;
+	}
+
 	/**
 	* Constructor
-	*
-	* @since 0.1
-	* @version 0.9.8
 	**/
 	function __construct() {
 		self::constants();
 
-		register_activation_hook( __FILE__, 'activate' );
-		register_uninstall_hook( __FILE__, 'uninstall' );
-
 		// Add different admin settings and admin menu
 		add_action( 'admin_init', array( 'LotroServerGUI', 'lotroserver_admin_init') );
 		add_action( 'admin_menu', array( $this, 'buildAdminMenu' ) );
-
-		// Settings changed?
-		if (isset($_POST['action']) && $_POST['action'] == 'save_serveroptions')
-			LotroServerGUI::saveSettings();
 
 		// Add meta links to plugin details
 		add_filter( 'plugin_action_links', array( $this, 'set_plugin_meta' ), 10, 2 );
@@ -58,8 +54,16 @@ class DisplayLotroServer {
 		if (self::$arySettings['shortcode'])
 			add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode') );
 
+		// Settings changed?
+		if (isset($_POST['action']) && $_POST['action'] == 'save_serveroptions')
+			LotroServerGUI::saveSettings();
+
 		// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, DLS_LANG_URL );
+
+		if(is_admin()) {
+			register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		}
 	}
 
 	/**
@@ -68,7 +72,7 @@ class DisplayLotroServer {
     * @since 0.9.8
     */
     function constants() {
-        define( 'DLS_VERSION', '0.9.7' );
+        define( 'DLS_VERSION', '0.9.8' );
         define( 'DLS_PLUGIN_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
         define( 'DLS_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
         define( 'DLS_PLUGIN_NAME', plugin_basename( __FILE__ ) );
@@ -79,51 +83,17 @@ class DisplayLotroServer {
 
 	/**
 	* Activation of the plugin
-	*
-	* @since 0.1
-	* @version 0.9.8
 	**/
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.4.2', '<')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.5', '<')) {
 			deactivate_plugins(DLS_PLUGIN_NAME); // Deactivate ourself
 			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.4.2 or higher.'));
 			return;
 		}
 
 		#Adds an option for saving the choosen servers
-		add_option( self::$optiontag, array(), '', 'no' );
-	}
-
-	/**
-	* Uninstallation
-	*
-	* @global wpdb get access to the wordpress-database and to clean it after uninstallation
-	* @since 0.1
-	**/
-	function uninstall() {
-		global $wpdb;
-		# delete the options
-		delete_option(self::$optiontag);
-		#clean up the database
-		$wpdb->query("OPTIMIZE TABLE `" .$wpdb->options. "`");
-	}
-
-	/**
-	* Send a message after installing/updating
-	*
-	* @since 0.1
-	* @version 0.9.8
-	*/
-	function updateMessage() {
-		# success message after installation
-		$strText = 'DisplayLotroServer '.DLS_VERSION.' '.__('installed','DLSlanguage').'.';
-
-		$strSettings = __('Please update your configuration and choose the servers','DLSlanguage');
-		$strLink = sprintf('<a href="options-general.php?page=%s">%s</a>', DLS_PLUGIN_DIR, __('Settings', 'DLSlanguage'));
-		
-		# display information message for setting up the servers
-		echo '<div class="updated"><p>'.$strText.' <strong>'.__('Important', 'DLSlanguage').':</strong> '.$strSettings.': '.$strLink.'.</p></div>';
+		update_option( self::$optiontag, self::$arySettings );
 	}
 
 	/**
@@ -131,7 +101,6 @@ class DisplayLotroServer {
 	*
 	* @see http://wpengineer.com/1295/meta-links-for-wordpress-plugins/
 	* @since 0.5
-	* @version 0.9.8
 	*/
 	function set_plugin_meta($links, $file) {
 	
@@ -148,9 +117,6 @@ class DisplayLotroServer {
 
 	/**
 	* Adds an option page for configuration
-	*
-	* @since 0.1
-	* @version 0.9.8
 	**/
 	function buildAdminMenu() {
 		$intOptionsPage = add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server', array( 'LotroServerGUI', 'showAdminPage' ) );
@@ -162,7 +128,6 @@ class DisplayLotroServer {
 	* @see http://www.selfphp.de/code_snippets/code_snippet.php?id=11
 	* @return true/false if domain is available or not
 	* @since 0.9.5
-	* @version 0.9.6
 	**/
 	static function domainAvailable ( $strDomain ) {
 		$rCurlHandle = curl_init ( $strDomain );
@@ -189,7 +154,6 @@ class DisplayLotroServer {
 	*
 	* @return gives back the status and the name of the server
 	* @since 0.9
-	* @version 0.9.8
 	**/
 	static function show_serverlist($location='all') {
 
@@ -249,7 +213,6 @@ class DisplayLotroServer {
 	* @param string $atts possible attributes
 	* @return gives back the serverlist
 	* @since 0.9
-	* @version 0.9.7
 	**/
 	function lotroserver_shortcode($atts) {
 
@@ -276,7 +239,3 @@ function lotroserver_register_widgets() {
 	register_widget( 'LotroServerWidget' );
 }
 add_action( 'widgets_init', 'lotroserver_register_widgets' );
-
-/* start the plugin */
-new DisplayLotroServer;
- ?>
