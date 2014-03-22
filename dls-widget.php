@@ -4,7 +4,6 @@
 * Adds the LotroServer widget.
 *
 * @since 0.5
-* @version 0.9.8
 */
 class LotroServerWidget extends WP_Widget {
 
@@ -24,7 +23,7 @@ class LotroServerWidget extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		global $options;
+		global $DLS;
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$leu = isset( $instance['loc_eu'] ) ? $instance['loc_eu'] : false; 
@@ -37,7 +36,7 @@ class LotroServerWidget extends WP_Widget {
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
 		# output of the serverlist
-		echo DisplayLotroServer::show_serverlist($attr_loc);
+		echo $DLS->show_serverlist($attr_loc);
 
 		echo $after_widget;
 	}
