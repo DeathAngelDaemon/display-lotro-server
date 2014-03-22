@@ -3,14 +3,12 @@
 Wordpress-Plugin for showing the server status of LotRO servers (as widget or shortcode).
 
 Requires at least (wordpress version): 3.5  
-Tested up to: 3.9 alpha
+Tested up to: 3.9 beta
 
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ### Description
-
-(At the moment) This plugin uses the external status-script from http://status.warriorsofnargathrond.com
 
 With "Display Lotro Server" you can configure which servers should be displayed. After configuring you can use the included Widget or the Shortcode [lotroserver] to display your list of servers.
 The servers will be shown with their names and their localization (e.g. [DE] for German servers) and in brackets behind the name, a small arrow will be shown:
@@ -39,6 +37,13 @@ Example: `[lotroserver loc="us"]`
 This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
+
+### 1.0
+* Re-structured a lot of code
+* (in addition to remove the addiction to the status script of warriorsofnargathrond.com)
+* revamped the admin interface (added a style and changed the saving options structure)
+* updated the translation
+* fixed the widget to be compatible with the code changes
 
 #### 0.9.8
 * Re-structured the code
