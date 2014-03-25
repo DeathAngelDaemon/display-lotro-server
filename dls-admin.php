@@ -86,14 +86,14 @@ class LotroServerGUI extends DisplayLotroServer {
 <div class="wrap">
 	<?php settings_errors(); ?>
 	<h2><?php _e( 'Display Lotro Server: Settings', 'DLSlanguage' ); ?></h2>
-	<?php _e( 'On this page you can do change the settings for displaying your desired servers.', 'DLSlanguage' ); ?>
+	<?php _e( 'Set up the plugin here. <em>Important: Choose at least one server, otherwiese nothing will be displayed.</em>', 'DLSlanguage' ); ?>
 	<form method="post" action="options.php" class="dls-form">
 		<?php wp_nonce_field( 'save_serveroptions', '_wpnonce-lotroserver' ); ?>
 		<?php settings_fields($this->optionsection); ?>
 	<div class="leftside">
 		<h3>EU Server Auswahl:</h3>
 		<div class="desc">
-			<?php _e('Choose from the given EU servers below your favourite ones. These are displayed in the frontend.', 'DLSlanguage'); ?>
+			<?php _e('Choose the EU servers you want to show at the frontend.', 'DLSlanguage'); ?>
 		</div>
 	    <ul>
 	    <?php
@@ -155,7 +155,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	<div class="rightside">
 		<h3>US Server Auswahl:</h3>
 		<div class="desc">
-			<?php _e('Choose from the given US servers below your favourite ones. These are displayed in the frontend.', 'DLSlanguage'); ?>
+			<?php _e('Choose the US servers you want to show at the frontend.', 'DLSlanguage'); ?>
 		</div>
 		<ul>
 		<?php

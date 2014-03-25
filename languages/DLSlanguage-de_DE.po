@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2014-03-22 11:33+0100\n"
-"PO-Revision-Date: 2014-03-22 11:34+0100\n"
+"POT-Creation-Date: 2014-03-25 13:35+0100\n"
+"PO-Revision-Date: 2014-03-25 13:37+0100\n"
 "Last-Translator: Anna Fischer <mail@anna-fischer.info>\n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:96
+#: ../display-lotro-server.php:94
 msgid ""
 "Sorry, but you can't run this plugin, it requires PHP 5.3 or higher and "
 "Wordpress version 3.5 or higher."
@@ -23,10 +23,18 @@ msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.3 oder "
 "höher und Wordpress-Version 3.5 oder höher."
 
-#: ../display-lotro-server.php:304
-msgid "There were no current server information found. Please try again later."
+#: ../display-lotro-server.php:190 ../display-lotro-server.php:241
+msgid ""
+"The DataCenter is not available. Any Request to get the server status is not "
+"possible at the moment."
 msgstr ""
-"Es wurden keine aktuellen Serverinformationen gefunden. Bitte aktualisieren "
+"Das Datenzentrum ist zurzeit nicht erreichbar. Eine Anfrage nach dem "
+"Serverstatus ist im Moment nicht möglich."
+
+#: ../display-lotro-server.php:322
+msgid "There are currently no server information. Please try again later."
+msgstr ""
+"Es gibt momentan keine aktuellen Serverinformationen. Bitte aktualisieren "
 "Sie später nochmal."
 
 #: ../dls-admin.php:38
@@ -47,25 +55,19 @@ msgstr "Display Lotro Server: Einstellungen"
 
 #: ../dls-admin.php:89
 msgid ""
-"On this page you can do change the settings for displaying your desired "
-"servers."
+"Set up the plugin here. <em>Important: Choose at least one server, "
+"otherwiese nothing will be displayed.</em>"
 msgstr ""
-"Hier k&ouml;nnt ihr Einstellungen zur gewünschten Server-Auflistung "
-"vornehmen."
+"Mache hier deine Einstellungen zum Plugin. <em>Wichtig: Wähle mindestens "
+"einen Server aus, ansonsten wird nichts angezeigt.</em>"
 
 #: ../dls-admin.php:96
-msgid ""
-"Choose from the given EU servers below your favourite ones. These are "
-"displayed in the frontend."
-msgstr ""
-"Wählt hier aus den aktuellen EU-Servern, die ihr anzeigen lassen möchtet."
+msgid "Choose the EU servers you want to show at the frontend."
+msgstr "Wähle die EU-Server, die du anzeigen möchtest."
 
 #: ../dls-admin.php:158
-msgid ""
-"Choose from the given US servers below your favourite ones. These are "
-"displayed in the frontend."
-msgstr ""
-"Wählt hier aus den aktuellen US-Servern, die ihr anzeigen lassen möchtet."
+msgid "Choose the US servers you want to show at the frontend."
+msgstr "Wähle die US-Server, die du anzeigen möchtest."
 
 #: ../dls-widget.php:14
 msgid "Shows a configured list of Lotro servers"
@@ -90,6 +92,13 @@ msgstr "EU-Server"
 #: ../dls-widget.php:83
 msgid "US server"
 msgstr "US-Server"
+
+#~ msgid ""
+#~ "On this page you can do change the settings for displaying your desired "
+#~ "servers."
+#~ msgstr ""
+#~ "Hier k&ouml;nnt ihr Einstellungen zur gewünschten Server-Auflistung "
+#~ "vornehmen."
 
 #, fuzzy
 #~ msgid "TEST: Settings"
