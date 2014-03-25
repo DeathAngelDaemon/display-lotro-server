@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Display Lotro Server
  * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
- * Description: Displays a server list of the configured servers (see the settings). Can be placed as a widget or a shortcode in every article or page. This plugin uses the status-script from http://status.warriorsofnargathrond.com
+ * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
- * Version: 1.0
+ * Version: 1.1
  *
  * Author: Anna Fischer
  * Author URI: http://hdroblog.anna-fischer.info/
@@ -12,8 +12,6 @@
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
-
-error_reporting( E_ALL );
 
 define( 'DLS_VERSION', '1.0' );
 
@@ -99,17 +97,6 @@ class DisplayLotroServer {
 	}
 
 	/**
-	 * Deactivation of the plugin
-	 */
-	function deactivate() {
-		global $wpdb;
-		// delete the options
-        delete_option( 'lotroserver_options' );
-        // clean up the database
-        $wpdb->query("OPTIMIZE TABLE `" .$wpdb->options. "`");
-	}
-
-	/**
     * Checks the optiontag and possibly set the default options
     *
     * @since 1.0
@@ -187,7 +174,7 @@ class DisplayLotroServer {
 		$datacenterUrl = 'http://gls.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 		$bullroarerUrl = 'http://gls-bullroarer.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 
-		if( $this->domainAvailable($datacenterUrl) || $this->domainAvailable($bullroarerUrl)) {
+		if( $this->domainAvailable($datacenterUrl) || $this->domainAvailable($bullroarerUrl) ) {
 			$client = new SoapClient($datacenterUrl);
 			$result = $client->GetDatacenters( array( 'game' => 'LOTRO' ) );
 			$array = $result->GetDatacentersResult->Datacenter->Worlds->World;
@@ -200,7 +187,7 @@ class DisplayLotroServer {
 
 			return $array;
 		} else {
-			return 'The DataCenter is not available. Any Request to get the server status is not possible at the moment.';
+			return __('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
 		}
 	}
 
@@ -217,32 +204,41 @@ class DisplayLotroServer {
 		$this->dataServerArray = $this->get_server_info();
 
 		if( !empty( $this->dataServerArray ) ) {
-			for($i=0;$i<sizeof($this->dataServerArray);$i++) {
-				foreach ($sa as $value) {
-					if(strpos($this->dataServerArray[$i]->Name, $value, 0) !== false) {
-						$xmlfile = $this->dataServerArray[$i]->StatusServerUrl;
-						$xml = simplexml_load_file($xmlfile);
-						$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter(explode(';', $xml->loginservers)) );
+			if( $this->dataServerArray === 'OFFLINE' ) {
+				return $serverlist = $this->dataServerArray;
+			} else {
+				for($i=0;$i<sizeof($this->dataServerArray);$i++) {
+					foreach ($sa as $value) {
+						if(strpos($this->dataServerArray[$i]->Name, $value, 0) !== false) {
+							$xmlfile = $this->dataServerArray[$i]->StatusServerUrl;
+							if(file_exists($xmlfile)) {
+								$xml = simplexml_load_file($xmlfile);
+								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter(explode(';', $xml->loginservers)) );	
+							} else {
+								$server = 'OFFLINE';
+								return $server;
+							}
+						}
 					}
 				}
-			}
 
-			foreach ($serverlist as $skey => $svalue) {
-				$serverip1 = explode(':', $serverlist[$skey]['IP'][0]);
-				$serverip2 = explode(':', $serverlist[$skey]['IP'][1]);
-				$status1 = $this->getServerStatus($serverip1[0], $serverip1[1]);
-				$status2 = $this->getServerStatus($serverip2[0], $serverip2[1]);
+				foreach ($serverlist as $skey => $svalue) {
+					$serverip1 = explode(':', $serverlist[$skey]['IP'][0]);
+					$serverip2 = explode(':', $serverlist[$skey]['IP'][1]);
+					$status1 = $this->getServerStatus($serverip1[0], $serverip1[1]);
+					$status2 = $this->getServerStatus($serverip2[0], $serverip2[1]);
 
-				if($status1 === 'ONLINE' && $status2 === 'ONLINE') {
-					$serverlist[$skey]['Status'] = 'online';
-				} else {
-					$serverlist[$skey]['Status'] = 'offline';
+					if($status1 === 'ONLINE' && $status2 === 'ONLINE') {
+						$serverlist[$skey]['Status'] = 'online';
+					} else {
+						$serverlist[$skey]['Status'] = 'offline';
+					}
 				}
-			}
 
-			return $serverlist;
+				return $serverlist;
+			}
 		} else {
-			return 'The DataCenter is not available. Any Request to get the server status is not possible at the moment.';
+			__('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
 		}
 		
 	}
@@ -301,7 +297,30 @@ class DisplayLotroServer {
 
 			return $listoutput;
 		} else {
-			return __('There were no current server information found. Please try again later.', 'DLSlanguage');
+			if($servers === 'OFFLINE') {
+				$listoutput = '<ul>';
+				foreach( $options as $loc ) {
+					if(is_array($loc)) {
+						foreach ($loc as $server => $checked) {
+							$listoutput .= '<li>';
+							if(in_array($server, $this->serverDE))
+								$listoutput .= '[DE] ';
+							if(in_array($server, $this->serverEN))
+								$listoutput .= '[EN] ';
+							if(in_array($server, $this->serverFR))
+								$listoutput .= '[FR] ';
+
+							$listoutput .= $server.' (<img src="'.DLS_IMAGES_URL.'down.png" alt="offline" />)';
+							$listoutput .= '</li>';
+						}
+					}											
+				}
+				$listoutput .= '</ul>';
+
+				return $listoutput;
+			} else {
+				return __('There are currently no server information. Please try again later.', 'DLSlanguage');
+			}
 		}
 	}
 
