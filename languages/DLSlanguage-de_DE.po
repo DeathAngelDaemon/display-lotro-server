@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2014-03-25 13:35+0100\n"
-"PO-Revision-Date: 2014-03-25 13:37+0100\n"
+"POT-Creation-Date: 2014-04-03 13:11+0100\n"
+"PO-Revision-Date: 2014-04-03 13:14+0100\n"
 "Last-Translator: Anna Fischer <mail@anna-fischer.info>\n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:94
+#: ../display-lotro-server.php:97
 msgid ""
 "Sorry, but you can't run this plugin, it requires PHP 5.3 or higher and "
 "Wordpress version 3.5 or higher."
@@ -23,7 +23,7 @@ msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.3 oder "
 "höher und Wordpress-Version 3.5 oder höher."
 
-#: ../display-lotro-server.php:190 ../display-lotro-server.php:241
+#: ../display-lotro-server.php:236
 msgid ""
 "The DataCenter is not available. Any Request to get the server status is not "
 "possible at the moment."
@@ -31,7 +31,7 @@ msgstr ""
 "Das Datenzentrum ist zurzeit nicht erreichbar. Eine Anfrage nach dem "
 "Serverstatus ist im Moment nicht möglich."
 
-#: ../display-lotro-server.php:322
+#: ../display-lotro-server.php:313
 msgid "There are currently no server information. Please try again later."
 msgstr ""
 "Es gibt momentan keine aktuellen Serverinformationen. Bitte aktualisieren "
@@ -49,11 +49,20 @@ msgstr "Einstellungen: Display Lotro Server"
 msgid "Display Lotro Server"
 msgstr "Display Lotro Server"
 
-#: ../dls-admin.php:88
-msgid "Display Lotro Server: Settings"
-msgstr "Display Lotro Server: Einstellungen"
+#: ../dls-admin.php:98
+msgid "Your settings are now on default."
+msgstr "Deine Einstellungen wurden zurückgesetzt."
 
-#: ../dls-admin.php:89
+#: ../dls-admin.php:100
+msgid "Something went wrong! Please contact the plugin developer."
+msgstr "Etwas ist schiefgelaufen! Bitte kontaktiere den Plugin-Entwickler."
+
+#: ../dls-admin.php:134
+#, fuzzy
+msgid "TEST: Settings"
+msgstr "Einstellungen"
+
+#: ../dls-admin.php:135
 msgid ""
 "Set up the plugin here. <em>Important: Choose at least one server, "
 "otherwiese nothing will be displayed.</em>"
@@ -61,13 +70,41 @@ msgstr ""
 "Mache hier deine Einstellungen zum Plugin. <em>Wichtig: Wähle mindestens "
 "einen Server aus, ansonsten wird nichts angezeigt.</em>"
 
-#: ../dls-admin.php:96
+#: ../dls-admin.php:142
 msgid "Choose the EU servers you want to show at the frontend."
 msgstr "Wähle die EU-Server, die du anzeigen möchtest."
 
-#: ../dls-admin.php:158
+#: ../dls-admin.php:144
+msgid "Select all EU servers"
+msgstr "Wähle alle EU-Server aus"
+
+#: ../dls-admin.php:145
+msgid "Select only DE servers"
+msgstr "Wähle nur die DE-Server"
+
+#: ../dls-admin.php:146
+msgid "Select only EN servers"
+msgstr "Wähle nur die EN-Server"
+
+#: ../dls-admin.php:147
+msgid "Select only FR servers"
+msgstr "Wähle nur die FR-Server"
+
+#: ../dls-admin.php:173
 msgid "Choose the US servers you want to show at the frontend."
 msgstr "Wähle die US-Server, die du anzeigen möchtest."
+
+#: ../dls-admin.php:175
+msgid "Select all US servers"
+msgstr "Wähle alle US-Server aus"
+
+#: ../dls-admin.php:197
+msgid "Reset to default settings"
+msgstr "Einstellungen zurücksetzen"
+
+#: ../dls-admin.php:204
+msgid "Please don't forget to save your changed settings."
+msgstr "Bitte vergiss nicht deine geänderten Einstellungen zu speichern."
 
 #: ../dls-widget.php:14
 msgid "Shows a configured list of Lotro servers"
@@ -93,19 +130,15 @@ msgstr "EU-Server"
 msgid "US server"
 msgstr "US-Server"
 
+#~ msgid "Display Lotro Server: Settings"
+#~ msgstr "Display Lotro Server: Einstellungen"
+
 #~ msgid ""
 #~ "On this page you can do change the settings for displaying your desired "
 #~ "servers."
 #~ msgstr ""
 #~ "Hier k&ouml;nnt ihr Einstellungen zur gewünschten Server-Auflistung "
 #~ "vornehmen."
-
-#, fuzzy
-#~ msgid "TEST: Settings"
-#~ msgstr "Einstellungen"
-
-#~ msgid "The settings are set back to default."
-#~ msgstr "Die Einstellungen wurden zurückgesetzt."
 
 #~ msgid "Settings saved."
 #~ msgstr "Einstellungen gespeichert."
@@ -115,9 +148,6 @@ msgstr "US-Server"
 
 #~ msgid "US Server Settings"
 #~ msgstr "US Server Einstellungen"
-
-#~ msgid "Set settings to default"
-#~ msgstr "Einstellungen zurücksetzen"
 
 #~ msgid "installed"
 #~ msgstr "installiert"
