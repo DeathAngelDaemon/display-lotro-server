@@ -29,10 +29,41 @@
 	display: inline-block;
 	overflow: hidden;
 	margin: 0 50px 0 0;
-	line-height: 20px;
 	width: 150px;
 }
 
 .dls-form li input {
 	display: inline-block;
+}
+
+.fa {
+	margin-right: 5px;
+}
+.fa:hover {
+	cursor: pointer;
+}
+
+.load-info {
+	display: none;
+	z-index: 999;
+	position: fixed;
+	top: 50%;
+	left: 40%;
+	background: #DFF0D8;
+	border: 1px solid #D6E9C6;
+	color: #3C763D;
+	padding: 15px;
+}
+
+.remember-info {
+	display: none;
+	z-index: 999;
+	position: fixed;
+	top: 20%;
+	left: 70%;
+	background: #F2DEDE;
+	border: 1px solid #EBCCD1;
+	color: #A94442;
+	padding: 15px;
+	width: 300px;
 }
