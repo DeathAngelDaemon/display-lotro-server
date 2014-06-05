@@ -6,11 +6,11 @@
 }
 
 .leftside {
-	width: 40%;
+	width: 50%;
 	float: left;
 }
 .rightside {
-	width: 40%;
+	width: 50%;
 	float: left
 }
 
@@ -59,7 +59,7 @@
 	display: none;
 	z-index: 999;
 	position: fixed;
-	top: 20%;
+	top: 70%;
 	left: 70%;
 	background: #F2DEDE;
 	border: 1px solid #EBCCD1;

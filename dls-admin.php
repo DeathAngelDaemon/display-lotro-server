@@ -133,11 +133,14 @@ class LotroServerGUI extends DisplayLotroServer {
 	<?php settings_errors(); ?>
 	<h2><?php _e( 'Display Lotro Server: Settings', 'DLSlanguage' ); ?></h2>
 	<?php _e( 'Set up the plugin here. <em>Important: Choose at least one server, otherwiese nothing will be displayed.</em>', 'DLSlanguage' ); ?>
+<div id="poststuff">
+	<div id="post-body" class="metabox-holder columns-2">
 	<form method="post" action="options.php" class="dls-form">
 		<?php wp_nonce_field( 'save_serveroptions', '_wpnonce-lotroserver' ); ?>
 		<?php settings_fields($this->optionsection); ?>
-	<div class="leftside">
-		<h3>EU Server Auswahl:</h3>
+	<div id="post-body-content">
+		<div class="leftside">
+		<h3><?php _e('EU server choice', 'DLSlanguage'); ?>:</h3>
 		<div class="desc">
 			<?php _e('Choose the EU servers you want to show at the frontend.', 'DLSlanguage'); ?>
 		</div>
@@ -166,9 +169,9 @@ class LotroServerGUI extends DisplayLotroServer {
 		}
 		?>
 		</ul>
-	</div>
-	<div class="rightside">
-		<h3>US Server Auswahl:</h3>
+		</div>
+		<div class="rightside">
+		<h3><?php _e('US server choice', 'DLSlanguage'); ?>:</h3>
 		<div class="desc">
 			<?php _e('Choose the US servers you want to show at the frontend.', 'DLSlanguage'); ?>
 		</div>
@@ -191,8 +194,36 @@ class LotroServerGUI extends DisplayLotroServer {
 		}
 		?>
 	    </ul>
+		</div>
+		<div class="clear"></div>
 	</div>
-	<div class="clear"></div>
+	<div id="postbox-container-1" class="postbox-container">
+		<div class="meta-box">
+			<div class="postbox">
+				<h3><span><?php _e('About this plugin', 'DLSlanguage'); ?></span></h3>
+				<div class="inside">
+				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> 1.1</p>
+				<p><strong><?php _e('Description', 'DLSlanguage'); ?>:</strong><br>
+					<?php _e('Choose the servers from the lists, which you want to show up on the frontend. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
+				</p><p>
+				<strong><?php _e('Widget', 'DLSlanguage'); ?>:</strong><br>
+					<?php _e('You can use the <em>Display Lotro Server Status Widget</em> to show up your chosen servers in a sidebar. The widget also allows you to choose if you want to show only the EU or the US servers you have checked here (e.g. if you want to insert two widgets for each region).', 'DLSlanguage'); ?>
+				</p>
+				</div>
+			</div>
+			<div class="postbox">
+				<h3><span><?php _e('Need help?', 'DLSlanguage'); ?></span></h3>
+				<div class="inside">
+					<p><?php _e('You need help and don\'t know where to find it? No problem. At first, please try to find the solution at GitHub. If that doesn\'t help, create a new issue at GitHub or contact me via mail. I\'ll prefer GitHub, because your problem or better the solution of you problem can help other users as well.', 'DLSlanguage'); ?></p>
+					<p>
+						<strong>GitHub:</strong> <a href="https://github.com/DeathAngelDaemon/display-lotro-server" title="<?php _e('The DLS project at GitHub', 'DLSlanguage'); ?>">Display Lotro Server @ GitHub</a>
+						<strong>E-Mail:</strong> deathangeldaemon@gmail.com
+					</p>
+				</div>
+			</div>
+		</div> <!-- .meta-box-sortables -->
+	</div>
+	<br class="clear">
 	    <?php submit_button(NULL,'primary','submit-serveroptions'); ?>
 	    <i class="fa fa-trash-o" id="reset" title="<?php _e('Reset to default settings', 'DLSlanguage'); ?>"> <?php _e('Reset to default settings', 'DLSlanguage'); ?></i>
     </form>
@@ -203,6 +234,8 @@ class LotroServerGUI extends DisplayLotroServer {
     	<i class="fa fa-exclamation-triangle"></i>
     	<?php _e('Please don\'t forget to save your changed settings.', 'DLSlanguage'); ?>
     </div>
+</div>
+</div>
 </div>
 <?php
 	}
