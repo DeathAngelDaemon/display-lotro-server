@@ -12,7 +12,7 @@ class LotroServerWidget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array('classname' => 'LotroServerWidget', 'description' => __('Shows a configured list of Lotro servers', 'DLSlanguage') );
-		$this->WP_Widget('LotroServerWidget', 'Display Lotro Server Status', $widget_ops);
+		$this->WP_Widget('LotroServerWidget', 'Status of the Lotro Server', $widget_ops);
 	}
 
 	/**
