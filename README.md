@@ -2,8 +2,8 @@
 
 Wordpress-Plugin for showing the server status of LotRO servers (as widget or shortcode).
 
-Requires at least (wordpress version): 3.5  
-Tested up to: 3.9 beta3
+Requires at least (wordpress version): 4.3  
+Tested up to: 4.4.2
 
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
