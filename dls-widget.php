@@ -12,7 +12,7 @@ class LotroServerWidget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array('classname' => 'LotroServerWidget', 'description' => __('Shows a configured list of Lotro servers', 'DLSlanguage') );
-		$this->WP_Widget('LotroServerWidget', 'Status of the Lotro Server', $widget_ops);
+		parent::__construct('LotroServerWidget', 'Status of the Lotro Server', $widget_ops);
 	}
 
 	/**
@@ -26,10 +26,10 @@ class LotroServerWidget extends WP_Widget {
 		global $DLS;
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$leu = isset( $instance['loc_eu'] ) ? $instance['loc_eu'] : false; 
-		$lus = isset( $instance['loc_us'] ) ? $instance['loc_us'] : false; 
-		$attr_loc = (empty($leu) && empty($lus) || !empty($leu) && !empty($lus)) ? 'all' 
-					: (!empty($instance['loc_eu']) ? 'eu' 
+		$leu = isset( $instance['loc_eu'] ) ? $instance['loc_eu'] : false;
+		$lus = isset( $instance['loc_us'] ) ? $instance['loc_us'] : false;
+		$attr_loc = (empty($leu) && empty($lus) || !empty($leu) && !empty($lus)) ? 'all'
+					: (!empty($instance['loc_eu']) ? 'eu'
 					: (empty($instance['loc_us']) ?: 'us'));
 
 		echo $before_widget;
@@ -51,7 +51,7 @@ class LotroServerWidget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		
+
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['loc_eu'] = $new_instance['loc_eu'] ? 1 : 0;
 		$instance['loc_us'] = $new_instance['loc_us'] ? 1 : 0;
@@ -76,10 +76,10 @@ class LotroServerWidget extends WP_Widget {
 		</p>
 		<p>
 			<?php _e( 'Only show servers from specific location', 'DLSlanguage' ) ?><br />
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_eu'); ?>" name="<?php echo $this->get_field_name('loc_eu'); ?>" <?php checked( $instance['loc_eu'], 1 ); ?> />
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_eu'); ?>" name="<?php echo $this->get_field_name('loc_eu'); ?>" <?php checked( $locEU, 1 ); ?> />
 			<label for="<?php echo $this->get_field_id('loc_eu'); ?>"><?php _e( 'EU server', 'DLSlanguage' ) ?></label>
 			<br />
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_us'); ?>" name="<?php echo $this->get_field_name('loc_us'); ?>" <?php checked( $instance['loc_us'], 1 ); ?> />
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_us'); ?>" name="<?php echo $this->get_field_name('loc_us'); ?>" <?php checked( $locUS, 1 ); ?> />
 			<label for="<?php echo $this->get_field_id('loc_us'); ?>"><?php _e( 'US server', 'DLSlanguage' ) ?></label>
 		</p>
 		<?php

@@ -4,7 +4,7 @@
  * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
  * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
- * Version: 1.1
+ * Version: 1.2
  *
  * Author: Anna Fischer
  * Author URI: http://hdroblog.anna-fischer.info/
@@ -13,7 +13,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-define( 'DLS_VERSION', '1.0' );
+define( 'DLS_VERSION', '1.2' );
 
 if ( !defined( 'DLS_PATH' ) )
 	define( 'DLS_PATH', plugin_dir_path( __FILE__ ) );
@@ -32,11 +32,11 @@ class DisplayLotroServer {
 		$defaults,
 		$optiontag = 'lotroserver_options',
 		$optionsection = 'serversection',
-		$serverslistEU = array( 'Anduin','Belegaer','Eldar','Estel','Evernight','Gilrain','Gwaihir','Laurelin','Maiar','Morthond','Sirannon','Vanyar','Withywindle' ),
-		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Dwarrowdelf', 'Elendilmir', 'Firefoot', 'Gladden', 'Imladris', 'Landroval', 'Meneldor', 'Nimrodel', 'Riddermark', 'Silverlode', 'Vilya', 'Windfola', 'Bullroarer'),
-		$serverDE = array( 'Anduin', 'Belegaer', 'Gwaihir', 'Maiar', 'Morthond', 'Vanyar' ),
-		$serverEN = array( 'Eldar', 'Evernight', 'Gilrain', 'Laurelin', 'Withywindle' ),
-		$serverFR = array( 'Sirannon', 'Estel' ),
+		$serverslistEU = array( 'Belegaer', 'Evernight', 'Gwaihir', 'Laurelin', 'Sirannon' ),
+		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Gladden', 'Landroval'),
+		$serverDE = array( 'Belegaer', 'Gwaihir' ),
+		$serverEN = array( 'Evernight', 'Laurelin' ),
+		$serverFR = array( 'Sirannon' ),
 		$status = array('OFFLINE', 'ONLINE'),
 		$dataServerArray;
 
@@ -51,8 +51,8 @@ class DisplayLotroServer {
     	// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
 
-		$euNull = array_fill(0, 13, '0');
-		$usNull = array_fill(0, 16, '0');
+		$euNull = array_fill(0, 5, '0');
+		$usNull = array_fill(0, 5, '0');
 		$this->defaults = array(
 			'EU' => array_combine($this->serverslistEU, $euNull),
 			'US' => array_combine($this->serverslistUS, $usNull),
@@ -223,7 +223,7 @@ class DisplayLotroServer {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'online');
 							} else {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'offline');
-							}							
+							}
 						}
 					} else {
 						continue;
@@ -235,7 +235,7 @@ class DisplayLotroServer {
 		} else {
 			__('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
 		}
-		
+
 	}
 
 	/**
@@ -304,7 +304,7 @@ class DisplayLotroServer {
 						$listoutput .= '[FR] ';
 
 					$listoutput .= $server.' (<img src="'.DLS_IMAGES_URL.'down.png" alt="offline" />)';
-					$listoutput .= '</li>';										
+					$listoutput .= '</li>';
 				}
 				$listoutput .= '</ul>';
 
@@ -324,7 +324,7 @@ class DisplayLotroServer {
 	**/
 	function lotroserver_shortcode($atts) {
 
-		/* 
+		/*
 		 * extract the attributes into variables
 		 * loc = can be 'eu' or 'us' to show the specified serves
 		 */
