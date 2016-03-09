@@ -38,6 +38,11 @@ This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
 
+### 1.2
+* Updated the server list, after the big world closure in late 2015
+* Fixed a few notices and warnings in the current wordpress version
+* did some code cleanup
+
 ### 1.1
 * Fixed a bug with the serverlist output (when the datacenter urls are empty)
 * Updated the admin interface for better usability (e.g. added ajax support)
