@@ -32,11 +32,11 @@ class DisplayLotroServer {
 		$defaults,
 		$optiontag = 'lotroserver_options',
 		$optionsection = 'serversection',
-		$serverslistEU = array( 'Anduin','Belegaer','Eldar','Estel','Evernight','Gilrain','Gwaihir','Laurelin','Maiar','Morthond','Sirannon','Vanyar','Withywindle' ),
-		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Dwarrowdelf', 'Elendilmir', 'Firefoot', 'Gladden', 'Imladris', 'Landroval', 'Meneldor', 'Nimrodel', 'Riddermark', 'Silverlode', 'Vilya', 'Windfola'),
-		$serverDE = array( 'Anduin', 'Belegaer', 'Gwaihir', 'Maiar', 'Morthond', 'Vanyar' ),
-		$serverEN = array( 'Eldar', 'Evernight', 'Gilrain', 'Laurelin', 'Withywindle' ),
-		$serverFR = array( 'Sirannon', 'Estel' ),
+		$serverslistEU = array( 'Belegaer', 'Evernight', 'Gwaihir', 'Laurelin', 'Sirannon' ),
+		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Gladden', 'Landroval'),
+		$serverDE = array( 'Belegaer', 'Gwaihir' ),
+		$serverEN = array( 'Evernight', 'Laurelin' ),
+		$serverFR = array( 'Sirannon' ),
 		$status = array('OFFLINE', 'ONLINE'),
 		$dataServerArray;
 
@@ -51,8 +51,8 @@ class DisplayLotroServer {
     	// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
 
-		$euNull = array_fill(0, 13, '0');
-		$usNull = array_fill(0, 16, '0');
+		$euNull = array_fill(0, 5, '0');
+		$usNull = array_fill(0, 5, '0');
 		$this->defaults = array(
 			'EU' => array_combine($this->serverslistEU, $euNull),
 			'US' => array_combine($this->serverslistUS, $usNull),
