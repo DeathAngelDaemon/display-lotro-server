@@ -33,7 +33,7 @@ class DisplayLotroServer {
 		$optiontag = 'lotroserver_options',
 		$optionsection = 'serversection',
 		$serverslistEU = array( 'Anduin','Belegaer','Eldar','Estel','Evernight','Gilrain','Gwaihir','Laurelin','Maiar','Morthond','Sirannon','Vanyar','Withywindle' ),
-		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Dwarrowdelf', 'Elendilmir', 'Firefoot', 'Gladden', 'Imladris', 'Landroval', 'Meneldor', 'Nimrodel', 'Riddermark', 'Silverlode', 'Vilya', 'Windfola', 'Bullroarer'),
+		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Dwarrowdelf', 'Elendilmir', 'Firefoot', 'Gladden', 'Imladris', 'Landroval', 'Meneldor', 'Nimrodel', 'Riddermark', 'Silverlode', 'Vilya', 'Windfola'),
 		$serverDE = array( 'Anduin', 'Belegaer', 'Gwaihir', 'Maiar', 'Morthond', 'Vanyar' ),
 		$serverEN = array( 'Eldar', 'Evernight', 'Gilrain', 'Laurelin', 'Withywindle' ),
 		$serverFR = array( 'Sirannon', 'Estel' ),
@@ -223,7 +223,7 @@ class DisplayLotroServer {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'online');
 							} else {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'offline');
-							}							
+							}
 						}
 					} else {
 						continue;
@@ -235,7 +235,7 @@ class DisplayLotroServer {
 		} else {
 			__('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
 		}
-		
+
 	}
 
 	/**
@@ -304,7 +304,7 @@ class DisplayLotroServer {
 						$listoutput .= '[FR] ';
 
 					$listoutput .= $server.' (<img src="'.DLS_IMAGES_URL.'down.png" alt="offline" />)';
-					$listoutput .= '</li>';										
+					$listoutput .= '</li>';
 				}
 				$listoutput .= '</ul>';
 
@@ -324,7 +324,7 @@ class DisplayLotroServer {
 	**/
 	function lotroserver_shortcode($atts) {
 
-		/* 
+		/*
 		 * extract the attributes into variables
 		 * loc = can be 'eu' or 'us' to show the specified serves
 		 */
