@@ -100,11 +100,11 @@ class DisplayLotroServer {
 	}
 
 	/**
-    * Checks the optiontag and possibly set the default options
-    *
-    * @since 1.0
-    */
-    function check_options() {
+   * Checks the optiontag and possibly set the default options
+   *
+   * @since 1.0
+   */
+  function check_options() {
     	// check to see if option already present
 		if( get_option( $this->optiontag ) === false ) {
 			// Adds an option for saving the settings
@@ -116,7 +116,7 @@ class DisplayLotroServer {
 			$new_op = wp_parse_args( $old_op, $this->defaults );
 			update_option( $this->optiontag, $new_op );
 		}
-    }
+  }
 
     /**
 	* helperfunction
@@ -261,7 +261,7 @@ class DisplayLotroServer {
 				}
 			}
 		}
-		
+
 		if(empty($serverarray) || !isset($serverarray)) {
 			return __('There are no servers to show. Please check your settings and choose at least one server.', 'DLSlanguage');
 		}
@@ -327,7 +327,6 @@ class DisplayLotroServer {
 	* @since 0.9
 	**/
 	function lotroserver_shortcode($atts) {
-
 		/*
 		 * extract the attributes into variables
 		 * loc = can be 'eu' or 'us' to show the specified serves
@@ -337,7 +336,6 @@ class DisplayLotroServer {
 		), $atts));
 
 	   return $this->show_serverlist($loc);
-
 	}
 
 }
