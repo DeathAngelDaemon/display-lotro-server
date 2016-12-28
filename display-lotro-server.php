@@ -270,7 +270,7 @@ class DisplayLotroServer {
 			switch($location) {
 				case 'eu':
 					foreach($serverarray as $key => $value) {
-						if(in_array($value, $this->$serverslistUS)) unset( $serverarray[$key] );
+						if(in_array($value, $this->serverslistUS)) unset( $serverarray[$key] );
 					}
 				break;
 				case 'us':
