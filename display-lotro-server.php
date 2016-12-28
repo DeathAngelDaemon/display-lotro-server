@@ -59,7 +59,7 @@ class DisplayLotroServer {
 			'shortcode' => true,
 			'version' => DLS_VERSION
 		);
-		$this->dataServerArray = $this->get_server_info();
+		$this->dataServerArray = $this->get_datacenter_result();
 
 		$this->check_options();
 		$this->options = get_option( $this->optiontag );
@@ -130,7 +130,7 @@ class DisplayLotroServer {
 	* @return true/false if domain is available or not
 	* @since 0.9.5
 	**/
-	function domainAvailable ( $strDomain ) {
+	function is_domain_available ( $strDomain ) {
 		$rCurlHandle = curl_init ( $strDomain );
 
 		curl_setopt ( $rCurlHandle, CURLOPT_CONNECTTIMEOUT, 10 );
@@ -156,7 +156,7 @@ class DisplayLotroServer {
 	* @return gives back 'ONLINE' or 'OFFLINE'
 	* @since 1.0
 	**/
-	function getServerStatus($site) {
+	function get_server_status($site) {
 		$fp = stream_socket_client('udp://'.$site, $errno, $errstr, 0.1);
 		if (!$fp) {
 			// echo "ERROR: $errno - $errstr<br />\n";
@@ -176,14 +176,14 @@ class DisplayLotroServer {
 	* @return $array contains all the needed server information
 	* @since 1.0
 	**/
-	function get_server_info() {
-    
+	function get_datacenter_result() {
+
 		$dataArray = array();
 
 		$datacenterUrl = 'http://gls.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 		$bullroarerUrl = 'http://gls-bullroarer.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 
-		if( $this->domainAvailable($datacenterUrl) || $this->domainAvailable($bullroarerUrl) ) {
+		if( $this->is_domain_available($datacenterUrl) || $this->is_domain_available($bullroarerUrl) ) {
 			$client = new SoapClient($datacenterUrl);
 			$result = $client->GetDatacenters( array( 'game' => 'LOTRO' ) );
 			$dataArray = $result->GetDatacentersResult->Datacenter->Worlds->World;
@@ -221,8 +221,8 @@ class DisplayLotroServer {
 							return $server;
 						} else {
 							$loginserver = explode(';', $xml->loginservers);
-							$status1 = $this->getServerStatus($loginserver[0]);
-							$status2 = $this->getServerStatus($loginserver[1]);
+							$status1 = $this->get_server_status($loginserver[0]);
+							$status2 = $this->get_server_status($loginserver[1]);
 							if($status1 === 'ONLINE' && $status2 === 'ONLINE') {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'online');
 							} else {
@@ -245,7 +245,7 @@ class DisplayLotroServer {
 	/**
 	* Function to call and show the serverlist.
 	*
-	* @return gives back the status and the name of the server
+	* @return returns html, a list with the given servers and there status or an error message
 	* @since 0.9
 	**/
 	function show_serverlist($location='all') {

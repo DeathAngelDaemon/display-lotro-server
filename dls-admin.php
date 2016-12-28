@@ -21,9 +21,9 @@ class LotroServerGUI extends DisplayLotroServer {
 	 */
 	function __construct() {
 		// Add admin settings and admin menu
-		add_action( 'admin_menu', array( $this, 'buildAdminMenu' ) );
-        add_action( 'admin_init', array( $this, 'lotroserver_admin_init' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'config_page_styles' ) );
+    add_action( 'admin_init', array( $this, 'lotroserver_admin_init' ) );
+		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+    add_action( 'admin_enqueue_scripts', array( $this, 'config_page_styles' ) );
 
 		// Add settings link to plugins page
 		add_filter( 'plugin_action_links_' . DLS_BASENAME , array( $this, 'add_settings_link' ) );
@@ -41,20 +41,20 @@ class LotroServerGUI extends DisplayLotroServer {
 	}
 
 	/**
-	* Initialize certain admin functions and sets the checkboxes for the configuration page.
+	* Register the settings and validation method to save the options.
 	**/
 	function lotroserver_admin_init() {
-		// add_settings_section('lotroserver_shortcode_options', __('Shortcode', 'DLSlanguage'),  array( 'LotroServerGUI', 'shortcode_section_text' ), parent::$optionsection);
-			// add_settings_field(	'choice_shortcode', __( 'Do you want to use the shortcode for posts and pages?', 'DLSlanguage' ), array( 'LotroServerGUI', 'check_shortcode_callback' ), parent::$optionsection, 'lotroserver_shortcode_options', array( 'label_for' => 'choice_shortcode' ) );
 		register_setting( $this->optionsection, $this->optiontag, array( $this, 'dls_options_validate' ) );
+    // add_settings_section('lotroserver_shortcode_options', __('Shortcode', 'DLSlanguage'),  array( 'LotroServerGUI', 'shortcode_section_text' ), parent::$optionsection);
+    // add_settings_field(	'choice_shortcode', __( 'Do you want to use the shortcode for posts and pages?', 'DLSlanguage' ), array( 'LotroServerGUI', 'check_shortcode_callback' ), parent::$optionsection, 'lotroserver_shortcode_options', array( 'label_for' => 'choice_shortcode' ) );
 	}
 
 	/**
 	 * Add settings page to admin menu
 	 * @return void
 	 */
-	function buildAdminMenu() {
-		add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server',  array( $this, 'showAdminPage' ) );
+	function add_settings_page() {
+		add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server',  array( $this, 'build_options_page_html' ) );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	/**
 	* Load the HTML for the admin page
 	**/
-	function showAdminPage() {
+	function build_options_page_html() {
 		global $DLS;
 ?>
 <div class="wrap">
