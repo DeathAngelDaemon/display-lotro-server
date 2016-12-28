@@ -115,8 +115,19 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * @return array/string $input the option which will be saved here
 	 */
 	function dls_options_validate($input) {
-		if ( ! check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) )
-	        die( 'Cheating!');
+		if ( ! check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) ) {
+      die( 'Cheating!');
+    }
+
+    if( isset($input['shortcode']) ) {
+      $input['shortcode'] = intval($input['shortcode']);
+      if( isset( $input['shortcode'] ) && $input['shortcode'] === 1) {
+        add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
+      } else {
+        remove_shortcode( 'lotroserver' );
+      }
+    }
+
 		return $input;
 	}
 
@@ -140,7 +151,7 @@ class LotroServerGUI extends DisplayLotroServer {
       <li>
         <label for="choice_shortcode"><?php _e('Do you want to use the shortcode?', 'DLSlanguage'); ?></label>
         <input type="checkbox" id="choice_shortcode" name="<?php echo $this->optiontag.'[shortcode]' ?>" value="1" <?php (!isset($DLS->options['shortcode'])) ?: checked($DLS->options['shortcode'], 1); ?> />
-      </li>      
+      </li>
     </ul>
 		<div class="leftside">
 		<h3><?php _e('EU server choice', 'DLSlanguage'); ?>:</h3>

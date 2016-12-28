@@ -56,7 +56,7 @@ class DisplayLotroServer {
 		$this->defaults = array(
 			'EU' => array_combine($this->serverslistEU, $euNull),
 			'US' => array_combine($this->serverslistUS, $usNull),
-			'shortcode' => 1,
+			'shortcode' => 0,
 			'version' => DLS_VERSION
 		);
 		$this->dataServerArray = $this->get_datacenter_result();
@@ -97,7 +97,7 @@ class DisplayLotroServer {
 	 */
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.5', '<')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '4.3', '<')) {
 			deactivate_plugins(DLS_BASENAME); // Deactivate ourself
 			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.5 or higher.'));
 			return;
