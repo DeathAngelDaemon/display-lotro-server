@@ -21,9 +21,9 @@ class LotroServerGUI extends DisplayLotroServer {
 	 */
 	function __construct() {
 		// Add admin settings and admin menu
-		add_action( 'admin_menu', array( $this, 'buildAdminMenu' ) );
-        add_action( 'admin_init', array( $this, 'lotroserver_admin_init' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'config_page_styles' ) );
+    add_action( 'admin_init', array( $this, 'lotroserver_admin_init' ) );
+		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+    add_action( 'admin_enqueue_scripts', array( $this, 'config_page_styles' ) );
 
 		// Add settings link to plugins page
 		add_filter( 'plugin_action_links_' . DLS_BASENAME , array( $this, 'add_settings_link' ) );
@@ -35,17 +35,15 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * @return array 		Modified links
 	 */
 	function add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=display-lotro-server">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
+		$settings_link = '<a href="' . menu_page_url( 'display-lotro-server', false ) . '">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
   		array_push( $links, $settings_link );
   		return $links;
 	}
 
 	/**
-	* Initialize certain admin functions and sets the checkboxes for the configuration page.
+	* Register the settings and validation method to save the options.
 	**/
 	function lotroserver_admin_init() {
-		// add_settings_section('lotroserver_shortcode_options', __('Shortcode', 'DLSlanguage'),  array( 'LotroServerGUI', 'shortcode_section_text' ), parent::$optionsection);
-			// add_settings_field(	'choice_shortcode', __( 'Do you want to use the shortcode for posts and pages?', 'DLSlanguage' ), array( 'LotroServerGUI', 'check_shortcode_callback' ), parent::$optionsection, 'lotroserver_shortcode_options', array( 'label_for' => 'choice_shortcode' ) );
 		register_setting( $this->optionsection, $this->optiontag, array( $this, 'dls_options_validate' ) );
 	}
 
@@ -53,8 +51,8 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * Add settings page to admin menu
 	 * @return void
 	 */
-	function buildAdminMenu() {
-		add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server',  array( $this, 'showAdminPage' ) );
+	function add_settings_page() {
+		add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server',  array( $this, 'build_options_page_html' ) );
 	}
 
 	/**
@@ -76,39 +74,38 @@ class LotroServerGUI extends DisplayLotroServer {
 			);
 		}
 	}
- 
+
  	/**
 	 * Under construction!
 	 * Function for ajax usage
 	 */
 	function reset_settings_ajax() {
  		global $DLS;
-	    $nonce = $_POST['resetSettingsNonce'];
-	 
-	    if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
-	        die( 'Cheating!');
-	 
-	    // ignore the request if the current user doesn't have
-	    // sufficient permissions
-	    if ( current_user_can( 'manage_options' ) ) {
+    $nonce = $_POST['resetSettingsNonce'];
 
-	    	delete_option($this->optiontag);
+    if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
+      die( 'Cheating!');
+
+    // ignore the request if the current user doesn't have
+    // sufficient permissions
+    if ( current_user_can( 'manage_options' ) ) {
+    	delete_option($this->optiontag);
 	 		$new = array_replace($DLS->options, $DLS->defaults);
-	 		if( is_array($new) ) {	 			
+	 		if( is_array($new) ) {
 	 			$success = __('Your settings are now on default.', 'DLSlanguage');
 	 		} else {
 	 			$success = __('Something went wrong! Please contact the plugin developer.', 'DLSlanguage');
 	 		}
 
-	        // generate the response
-	        $response = json_encode( $success );
-	 
-	        // response output
-	        header( "Content-Type: application/json" );
-	        echo $response;
-	    }
+      // generate the response
+      $response = json_encode( $success );
 
-	    exit;
+      // response output
+      header( "Content-Type: application/json" );
+      echo $response;
+    }
+
+    exit;
 	}
 
 	/**
@@ -118,19 +115,29 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * @return array/string $input the option which will be saved here
 	 */
 	function dls_options_validate($input) {
-		if ( ! check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) )
-	        die( 'Cheating!');
+		if ( ! check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) ) {
+      die( 'Cheating!');
+    }
+
+    if( isset($input['shortcode']) ) {
+      $input['shortcode'] = intval($input['shortcode']);
+      if( isset( $input['shortcode'] ) && $input['shortcode'] === 1) {
+        add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
+      } else {
+        remove_shortcode( 'lotroserver' );
+      }
+    }
+
 		return $input;
 	}
 
 	/**
 	* Load the HTML for the admin page
 	**/
-	function showAdminPage() {
+	function build_options_page_html() {
 		global $DLS;
 ?>
 <div class="wrap">
-	<?php settings_errors(); ?>
 	<h2><?php _e( 'Display Lotro Server: Settings', 'DLSlanguage' ); ?></h2>
 	<?php _e( 'Set up the plugin here. <em>Important: Choose at least one server, otherwiese nothing will be displayed.</em>', 'DLSlanguage' ); ?>
 <div id="poststuff">
@@ -139,6 +146,13 @@ class LotroServerGUI extends DisplayLotroServer {
 		<?php wp_nonce_field( 'save_serveroptions', '_wpnonce-lotroserver' ); ?>
 		<?php settings_fields($this->optionsection); ?>
 	<div id="post-body-content">
+    <h3><?php _e('General settings', 'DLSlanguage'); ?>:</h3>
+    <ul>
+      <li>
+        <label for="choice_shortcode"><?php _e('Do you want to use the shortcode?', 'DLSlanguage'); ?></label>
+        <input type="checkbox" id="choice_shortcode" name="<?php echo $this->optiontag.'[shortcode]' ?>" value="1" <?php (!isset($DLS->options['shortcode'])) ?: checked($DLS->options['shortcode'], 1); ?> />
+      </li>
+    </ul>
 		<div class="leftside">
 		<h3><?php _e('EU server choice', 'DLSlanguage'); ?>:</h3>
 		<div class="desc">
@@ -165,9 +179,7 @@ class LotroServerGUI extends DisplayLotroServer {
 				<input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[EU]['.$servername.']'; ?>" value="1" <?php (!isset($DLS->options['EU'][$servername])) ?: checked($DLS->options['EU'][$servername], 1); ?> />
 				<input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
 			</li>
-		<?php
-		}
-		?>
+  		<?php	}	?>
 		</ul>
 		</div>
 		<div class="rightside">
@@ -202,12 +214,12 @@ class LotroServerGUI extends DisplayLotroServer {
 			<div class="postbox">
 				<h3><span><?php _e('About this plugin', 'DLSlanguage'); ?></span></h3>
 				<div class="inside">
-				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> 1.1</p>
+				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> <?php echo DLS_VERSION; ?></p>
 				<p><strong><?php _e('Description', 'DLSlanguage'); ?>:</strong><br>
-					<?php _e('Choose the servers from the lists, which you want to show up on the frontend. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
+					<?php _e('Choose the servers from the lists, which you want to show up on your site. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
 				</p><p>
 				<strong><?php _e('Widget', 'DLSlanguage'); ?>:</strong><br>
-					<?php _e('You can use the <em>Display Lotro Server Status Widget</em> to show up your chosen servers in a sidebar. The widget also allows you to choose if you want to show only the EU or the US servers you have checked here (e.g. if you want to insert two widgets for each region).', 'DLSlanguage'); ?>
+					<?php _e('You can use the widget <em>Status of the Lotro Server</em> to show up your chosen servers in a sidebar. The widget also allows you to choose if you want to show only the EU or the US servers you have checked here (e.g. if you want to insert two widgets for each region).', 'DLSlanguage'); ?>
 				</p>
 				</div>
 			</div>
@@ -216,7 +228,7 @@ class LotroServerGUI extends DisplayLotroServer {
 				<div class="inside">
 					<p><?php _e('You need help and don\'t know where to find it? No problem. At first, please try to find the solution at GitHub. If that doesn\'t help, create a new issue at GitHub or contact me via mail. I\'ll prefer GitHub, because your problem or better the solution of you problem can help other users as well.', 'DLSlanguage'); ?></p>
 					<p>
-						<strong>GitHub:</strong> <a href="https://github.com/DeathAngelDaemon/display-lotro-server" title="<?php _e('The DLS project at GitHub', 'DLSlanguage'); ?>">Display Lotro Server @ GitHub</a>
+						<strong>GitHub:</strong> <a href="https://github.com/DeathAngelDaemon/display-lotro-server" title="<?php _e('The DLS project at GitHub', 'DLSlanguage'); ?>">Display Lotro Server @ GitHub</a><br />
 						<strong>E-Mail:</strong> deathangeldaemon@gmail.com
 					</p>
 				</div>

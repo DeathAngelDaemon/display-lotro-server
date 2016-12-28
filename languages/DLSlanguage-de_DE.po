@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Display Lotro Server\n"
-"POT-Creation-Date: 2014-04-09 13:32+0100\n"
-"PO-Revision-Date: 2014-04-09 13:32+0100\n"
+"POT-Creation-Date: 2016-12-28 14:32+0100\n"
+"PO-Revision-Date: 2016-12-28 14:32+0100\n"
 "Last-Translator: Anna Fischer <mail@anna-fischer.info>\n"
 "Language-Team: Nimlari <hdroblog@anna-fischer.info>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../display-lotro-server.php:97
+#: ../display-lotro-server.php:102
 msgid ""
 "Sorry, but you can't run this plugin, it requires PHP 5.3 or higher and "
 "Wordpress version 3.5 or higher."
@@ -23,7 +23,7 @@ msgstr ""
 "Entschuldige, aber das Plugin läuft nicht - es benötigt PHP-Version 5.3 oder "
 "höher und Wordpress-Version 3.5 oder höher."
 
-#: ../display-lotro-server.php:236
+#: ../display-lotro-server.php:240
 msgid ""
 "The DataCenter is not available. Any Request to get the server status is not "
 "possible at the moment."
@@ -31,7 +31,15 @@ msgstr ""
 "Das Datenzentrum ist zurzeit nicht erreichbar. Eine Anfrage nach dem "
 "Serverstatus ist im Moment nicht möglich."
 
-#: ../display-lotro-server.php:313
+#: ../display-lotro-server.php:266
+msgid ""
+"There are no servers to show. Please check your settings and choose at least "
+"one server."
+msgstr ""
+"Es können keine Server angezeigt werden. Bitte überprüfe deine Einstellungen "
+"und wähle mindestens einen Server aus."
+
+#: ../display-lotro-server.php:320
 msgid "There are currently no server information. Please try again later."
 msgstr ""
 "Es gibt momentan keine aktuellen Serverinformationen. Bitte aktualisieren "
@@ -41,28 +49,27 @@ msgstr ""
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ../dls-admin.php:57
+#: ../dls-admin.php:55
 msgid "Settings: Display Lotro Server"
 msgstr "Einstellungen: Display Lotro Server"
 
-#: ../dls-admin.php:57
+#: ../dls-admin.php:55
 msgid "Display Lotro Server"
 msgstr "Display Lotro Server"
 
-#: ../dls-admin.php:98
+#: ../dls-admin.php:95
 msgid "Your settings are now on default."
 msgstr "Deine Einstellungen wurden zurückgesetzt."
 
-#: ../dls-admin.php:100
+#: ../dls-admin.php:97
 msgid "Something went wrong! Please contact the plugin developer."
 msgstr "Etwas ist schiefgelaufen! Bitte kontaktiere den Plugin-Entwickler."
 
-#: ../dls-admin.php:134
-#, fuzzy
-msgid "TEST: Settings"
-msgstr "Einstellungen"
+#: ../dls-admin.php:130
+msgid "Display Lotro Server: Settings"
+msgstr "Display Lotro Server: Einstellungen"
 
-#: ../dls-admin.php:135
+#: ../dls-admin.php:131
 msgid ""
 "Set up the plugin here. <em>Important: Choose at least one server, "
 "otherwiese nothing will be displayed.</em>"
@@ -70,88 +77,95 @@ msgstr ""
 "Mache hier deine Einstellungen zum Plugin. <em>Wichtig: Wähle mindestens "
 "einen Server aus, ansonsten wird nichts angezeigt.</em>"
 
-#: ../dls-admin.php:143
+#: ../dls-admin.php:138
+msgid "General settings"
+msgstr "Allgemeine Einstellungen"
+
+#: ../dls-admin.php:141
+msgid "Do you want to use the shortcode?"
+msgstr "Möchtest du den Shortcode nutzen?"
+
+#: ../dls-admin.php:146
 msgid "EU server choice"
 msgstr "EU Server Auswahl"
 
-#: ../dls-admin.php:145
+#: ../dls-admin.php:148
 msgid "Choose the EU servers you want to show at the frontend."
 msgstr "Wähle die EU-Server, die du anzeigen möchtest."
 
-#: ../dls-admin.php:147
+#: ../dls-admin.php:150
 msgid "Select all EU servers"
 msgstr "Wähle alle EU-Server aus"
 
-#: ../dls-admin.php:148
+#: ../dls-admin.php:151
 msgid "Select only DE servers"
 msgstr "Wähle nur die DE-Server"
 
-#: ../dls-admin.php:149
+#: ../dls-admin.php:152
 msgid "Select only EN servers"
 msgstr "Wähle nur die EN-Server"
 
-#: ../dls-admin.php:150
+#: ../dls-admin.php:153
 msgid "Select only FR servers"
 msgstr "Wähle nur die FR-Server"
 
-#: ../dls-admin.php:174
+#: ../dls-admin.php:175
 msgid "US server choice"
 msgstr "US Server Auswahl"
 
-#: ../dls-admin.php:176
+#: ../dls-admin.php:177
 msgid "Choose the US servers you want to show at the frontend."
 msgstr "Wähle die US-Server, die du anzeigen möchtest."
 
-#: ../dls-admin.php:178
+#: ../dls-admin.php:179
 msgid "Select all US servers"
 msgstr "Wähle alle US-Server aus"
 
-#: ../dls-admin.php:203
+#: ../dls-admin.php:204
 msgid "About this plugin"
 msgstr "Über dieses Plugin"
 
-#: ../dls-admin.php:205
+#: ../dls-admin.php:206
 msgid "Version"
 msgstr "Version"
 
-#: ../dls-admin.php:206
+#: ../dls-admin.php:207
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../dls-admin.php:207
+#: ../dls-admin.php:208
 msgid ""
-"Choose the servers from the lists, which you want to show up on the "
-"frontend. You can select all EU or all US servers, but you can also choose "
-"only DE, EN or FR servers - in combination with the US servers. Everything "
-"is possible!"
+"Choose the servers from the lists, which you want to show up on your site. "
+"You can select all EU or all US servers, but you can also choose only DE, EN "
+"or FR servers - in combination with the US servers. Everything is possible!"
 msgstr ""
-"Wähle die Server aus den vorgegebenen Listen, die du im Frontend anzeigen "
-"möchtest. Du kannst auch alle EU oder US Server auf einmal auswählen, oder "
-"nur die DE, EN oder FR Server - kombiniert mit Servern aus der US-Liste. "
-"Alles ist möglich!"
+"Wähle die Server aus den vorgegebenen Listen, die du auf deiner Seite "
+"anzeigen möchtest. Du kannst dabei alle EU oder US Server auf einmal "
+"auswählen, oder nur die DE, EN oder FR Server - kombiniert mit Servern aus "
+"der US-Liste. Alles ist möglich!"
 
-#: ../dls-admin.php:209
+#: ../dls-admin.php:210
 msgid "Widget"
 msgstr "Widget"
 
-#: ../dls-admin.php:210
+#: ../dls-admin.php:211
 msgid ""
-"You can use the <em>Display Lotro Server Status Widget</em> to show up your "
+"You can use the widget <em>Status of the Lotro Server</em> to show up your "
 "chosen servers in a sidebar. The widget also allows you to choose if you "
 "want to show only the EU or the US servers you have checked here (e.g. if "
 "you want to insert two widgets for each region)."
 msgstr ""
-"Du kannst das <em>Display Lotro Server Widget</em> benutzen um deine "
+"Du kannst das Widget <em>Status der HdRO Server</em> benutzen um deine "
 "gewählten Server in einer Sidebar anzuzeigen. Das Widget lässt dir außerdem "
 "die Wahl, ob du nur EU oder US Server anzeigen lassen möchtest, die du "
 "vorher hier gewählt hast (z.B. wenn du zwei Widgets, eins pro Region, "
 "verwenden möchtest)."
 
-#: ../dls-admin.php:215
+#: ../dls-admin.php:216
 msgid "Need help?"
 msgstr "Brauchst du Hilfe?"
 
-#: ../dls-admin.php:217
+#: ../dls-admin.php:218
 msgid ""
 "You need help and don't know where to find it? No problem. At first, please "
 "try to find the solution at GitHub. If that doesn't help, create a new issue "
@@ -164,15 +178,15 @@ msgstr ""
 "bevorzuge GitHub, da dein Problem bzw. die Lösung deines Problems auch "
 "anderen Nutzern helfen kann."
 
-#: ../dls-admin.php:219
+#: ../dls-admin.php:220
 msgid "The DLS project at GitHub"
 msgstr "Das DLS Projekt auf GitHub"
 
-#: ../dls-admin.php:228
+#: ../dls-admin.php:229
 msgid "Reset to default settings"
 msgstr "Einstellungen zurücksetzen"
 
-#: ../dls-admin.php:235
+#: ../dls-admin.php:236
 msgid "Please don't forget to save your changed settings."
 msgstr "Bitte vergiss nicht deine geänderten Einstellungen zu speichern."
 
@@ -200,8 +214,32 @@ msgstr "EU-Server"
 msgid "US server"
 msgstr "US-Server"
 
-#~ msgid "Display Lotro Server: Settings"
-#~ msgstr "Display Lotro Server: Einstellungen"
+#, fuzzy
+#~ msgid "TEST: Settings"
+#~ msgstr "Einstellungen"
+
+#~ msgid ""
+#~ "Choose the servers from the lists, which you want to show up on the "
+#~ "frontend. You can select all EU or all US servers, but you can also "
+#~ "choose only DE, EN or FR servers - in combination with the US servers. "
+#~ "Everything is possible!"
+#~ msgstr ""
+#~ "Wähle die Server aus den vorgegebenen Listen, die du im Frontend anzeigen "
+#~ "möchtest. Du kannst auch alle EU oder US Server auf einmal auswählen, "
+#~ "oder nur die DE, EN oder FR Server - kombiniert mit Servern aus der US-"
+#~ "Liste. Alles ist möglich!"
+
+#~ msgid ""
+#~ "You can use the <em>Display Lotro Server Status Widget</em> to show up "
+#~ "your chosen servers in a sidebar. The widget also allows you to choose if "
+#~ "you want to show only the EU or the US servers you have checked here (e."
+#~ "g. if you want to insert two widgets for each region)."
+#~ msgstr ""
+#~ "Du kannst das <em>Display Lotro Server Widget</em> benutzen um deine "
+#~ "gewählten Server in einer Sidebar anzuzeigen. Das Widget lässt dir "
+#~ "außerdem die Wahl, ob du nur EU oder US Server anzeigen lassen möchtest, "
+#~ "die du vorher hier gewählt hast (z.B. wenn du zwei Widgets, eins pro "
+#~ "Region, verwenden möchtest)."
 
 #~ msgid ""
 #~ "On this page you can do change the settings for displaying your desired "

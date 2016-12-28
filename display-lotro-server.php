@@ -4,7 +4,7 @@
  * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
  * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
- * Version: 1.2
+ * Version: 1.3
  *
  * Author: Anna Fischer
  * Author URI: http://hdroblog.anna-fischer.info/
@@ -13,7 +13,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-define( 'DLS_VERSION', '1.2' );
+define( 'DLS_VERSION', '1.3' );
 
 if ( !defined( 'DLS_PATH' ) )
 	define( 'DLS_PATH', plugin_dir_path( __FILE__ ) );
@@ -45,8 +45,8 @@ class DisplayLotroServer {
 	 */
 	function __construct() {
 		// Activation hook
-    	register_activation_hook( __FILE__, array( $this, 'activate' ) );
-    	// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
+  	register_activation_hook( __FILE__, array( $this, 'activate' ) );
+  	// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
 
     	// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
@@ -56,13 +56,18 @@ class DisplayLotroServer {
 		$this->defaults = array(
 			'EU' => array_combine($this->serverslistEU, $euNull),
 			'US' => array_combine($this->serverslistUS, $usNull),
-			'shortcode' => true,
+			'shortcode' => 0,
 			'version' => DLS_VERSION
 		);
-		$this->dataServerArray = $this->get_server_info();
+		$this->dataServerArray = $this->get_datacenter_result();
 
 		$this->check_options();
 		$this->options = get_option( $this->optiontag );
+
+    // avoid empty entry in options array
+		if( isset( $this->options[0] ) && empty( $this->options[0] ) ) {
+			unset( $this->options[0] );
+		}
 
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 
@@ -92,7 +97,7 @@ class DisplayLotroServer {
 	 */
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '3.5', '<')) {
+		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '4.3', '<')) {
 			deactivate_plugins(DLS_BASENAME); // Deactivate ourself
 			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.5 or higher.'));
 			return;
@@ -100,11 +105,11 @@ class DisplayLotroServer {
 	}
 
 	/**
-    * Checks the optiontag and possibly set the default options
-    *
-    * @since 1.0
-    */
-    function check_options() {
+   * Checks the optiontag and possibly set the default options
+   *
+   * @since 1.0
+   */
+  function check_options() {
     	// check to see if option already present
 		if( get_option( $this->optiontag ) === false ) {
 			// Adds an option for saving the settings
@@ -116,7 +121,7 @@ class DisplayLotroServer {
 			$new_op = wp_parse_args( $old_op, $this->defaults );
 			update_option( $this->optiontag, $new_op );
 		}
-    }
+  }
 
     /**
 	* helperfunction
@@ -125,7 +130,7 @@ class DisplayLotroServer {
 	* @return true/false if domain is available or not
 	* @since 0.9.5
 	**/
-	function domainAvailable ( $strDomain ) {
+	function is_domain_available ( $strDomain ) {
 		$rCurlHandle = curl_init ( $strDomain );
 
 		curl_setopt ( $rCurlHandle, CURLOPT_CONNECTTIMEOUT, 10 );
@@ -151,7 +156,7 @@ class DisplayLotroServer {
 	* @return gives back 'ONLINE' or 'OFFLINE'
 	* @since 1.0
 	**/
-	function getServerStatus($site) {
+	function get_server_status($site) {
 		$fp = stream_socket_client('udp://'.$site, $errno, $errstr, 0.1);
 		if (!$fp) {
 			// echo "ERROR: $errno - $errstr<br />\n";
@@ -171,20 +176,19 @@ class DisplayLotroServer {
 	* @return $array contains all the needed server information
 	* @since 1.0
 	**/
-	function get_server_info() {
-		$options = get_option( $this->optiontag );
+	function get_datacenter_result() {
 
 		$dataArray = array();
 
 		$datacenterUrl = 'http://gls.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 		$bullroarerUrl = 'http://gls-bullroarer.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 
-		if( $this->domainAvailable($datacenterUrl) || $this->domainAvailable($bullroarerUrl) ) {
+		if( $this->is_domain_available($datacenterUrl) || $this->is_domain_available($bullroarerUrl) ) {
 			$client = new SoapClient($datacenterUrl);
 			$result = $client->GetDatacenters( array( 'game' => 'LOTRO' ) );
 			$dataArray = $result->GetDatacentersResult->Datacenter->Worlds->World;
 
-			if(isset($options['US']['Bullroarer']) && $options['US']['Bullroarer'] === '1') {
+			if(isset($this->options['US']['Bullroarer']) && $this->options['US']['Bullroarer'] === '1') {
 				$clientB = new SoapClient($bullroarerUrl);
 				$resultB = $clientB->GetDatacenters( array( 'game' => 'LOTRO' ) );
 				$dataArray[] = $resultB->GetDatacentersResult->Datacenter->Worlds->World;
@@ -217,8 +221,8 @@ class DisplayLotroServer {
 							return $server;
 						} else {
 							$loginserver = explode(';', $xml->loginservers);
-							$status1 = $this->getServerStatus($loginserver[0]);
-							$status2 = $this->getServerStatus($loginserver[1]);
+							$status1 = $this->get_server_status($loginserver[0]);
+							$status2 = $this->get_server_status($loginserver[1]);
 							if($status1 === 'ONLINE' && $status2 === 'ONLINE') {
 								$serverlist[] = array( 'Name' => (string) $xml->name, 'IP' => array_filter($loginserver), 'Status' => 'online');
 							} else {
@@ -233,7 +237,7 @@ class DisplayLotroServer {
 
 			return $serverlist;
 		} else {
-			__('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
+			return __('The DataCenter is not available. Any Request to get the server status is not possible at the moment.', 'DLSlanguage');
 		}
 
 	}
@@ -241,47 +245,46 @@ class DisplayLotroServer {
 	/**
 	* Function to call and show the serverlist.
 	*
-	* @return gives back the status and the name of the server
+	* @return returns html, a list with the given servers and there status or an error message
 	* @since 0.9
 	**/
 	function show_serverlist($location='all') {
 
-		$options = get_option( $this->optiontag );
-
-		if( isset( $options[0] ) && empty( $options[0] ) ) {
-			unset( $options[0] );
-		}
-
-		foreach( $options as $server ) {
+    // loop through the options and check which server was selected
+		foreach( $this->options as $server ) {
 			if( is_array($server) ) {
-				foreach( $server as $name => $wert ) {
-					if( $wert === '1' ) {
-						$serverarray[] = $name;
+				foreach( $server as $name => $value ) {
+					if( $value === '1' ) {
+						$optionsarray[] = $name;
 					}
 				}
 			}
 		}
-		
-		if(empty($serverarray) || !isset($serverarray)) {
+
+    // check if the options array exists and is not empty (otherwise no options were set)
+		if(empty($optionsarray) || !isset($optionsarray)) {
 			return __('There are no servers to show. Please check your settings and choose at least one server.', 'DLSlanguage');
 		}
 
+    // if location parameter is set (by widget or shortcode) loop through the array and delete the entries which are not eligable
+    // e.g. if 'eu' is selected, remove the us-server from the array and vice versa
 		if($location !== 'all') {
 			switch($location) {
 				case 'eu':
-					foreach($serverarray as $key => $value) {
-						if(in_array($value, $this->$serverslistUS)) unset( $serverarray[$key] );
+					foreach($optionsarray as $key => $value) {
+						if(in_array($value, $this->serverslistUS)) unset( $optionsarray[$key] );
 					}
 				break;
 				case 'us':
-					foreach($serverarray as $key => $value) {
-						if(in_array($value, $this->serverslistEU)) unset( $serverarray[$key] );
+					foreach($optionsarray as $key => $value) {
+						if(in_array($value, $this->serverslistEU)) unset( $optionsarray[$key] );
 					}
 				break;
 			}
 		}
 
-		$servers = $this->get_serverlist($serverarray);
+    // get the serverlist from the datacenter based on the selected servers (saved as optionsarray)
+		$servers = $this->get_serverlist($optionsarray);
 
 		if( !empty($servers) && is_array($servers) ) {
 			$listoutput = '<ul>';
@@ -298,7 +301,7 @@ class DisplayLotroServer {
 		} else {
 			if($servers === 'OFFLINE') {
 				$listoutput = '<ul>';
-				foreach( $serverarray as $server ) {
+				foreach( $optionsarray as $server ) {
 					$listoutput .= '<li>';
 					if(in_array($server, $this->serverDE))
 						$listoutput .= '[DE] ';
@@ -327,7 +330,6 @@ class DisplayLotroServer {
 	* @since 0.9
 	**/
 	function lotroserver_shortcode($atts) {
-
 		/*
 		 * extract the attributes into variables
 		 * loc = can be 'eu' or 'us' to show the specified serves
@@ -337,7 +339,6 @@ class DisplayLotroServer {
 		), $atts));
 
 	   return $this->show_serverlist($loc);
-
 	}
 
 }
