@@ -261,6 +261,10 @@ class DisplayLotroServer {
 				}
 			}
 		}
+		
+		if(empty($serverarray) || !isset($serverarray)) {
+			return __('There are no servers to show. Please check your settings and choose at least one server.', 'DLSlanguage');
+		}
 
 		if($location !== 'all') {
 			switch($location) {
