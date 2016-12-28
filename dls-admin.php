@@ -201,7 +201,7 @@ class LotroServerGUI extends DisplayLotroServer {
 			<div class="postbox">
 				<h3><span><?php _e('About this plugin', 'DLSlanguage'); ?></span></h3>
 				<div class="inside">
-				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> 1.1</p>
+				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> <?php echo DLS_VERSION; ?></p>
 				<p><strong><?php _e('Description', 'DLSlanguage'); ?>:</strong><br>
 					<?php _e('Choose the servers from the lists, which you want to show up on the frontend. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
 				</p><p>
@@ -215,7 +215,7 @@ class LotroServerGUI extends DisplayLotroServer {
 				<div class="inside">
 					<p><?php _e('You need help and don\'t know where to find it? No problem. At first, please try to find the solution at GitHub. If that doesn\'t help, create a new issue at GitHub or contact me via mail. I\'ll prefer GitHub, because your problem or better the solution of you problem can help other users as well.', 'DLSlanguage'); ?></p>
 					<p>
-						<strong>GitHub:</strong> <a href="https://github.com/DeathAngelDaemon/display-lotro-server" title="<?php _e('The DLS project at GitHub', 'DLSlanguage'); ?>">Display Lotro Server @ GitHub</a>
+						<strong>GitHub:</strong> <a href="https://github.com/DeathAngelDaemon/display-lotro-server" title="<?php _e('The DLS project at GitHub', 'DLSlanguage'); ?>">Display Lotro Server @ GitHub</a><br />
 						<strong>E-Mail:</strong> deathangeldaemon@gmail.com
 					</p>
 				</div>
