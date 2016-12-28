@@ -3,7 +3,7 @@
 Wordpress-Plugin for showing the server status of LotRO servers (as widget or shortcode).
 
 Requires at least (wordpress version): 4.3  
-Tested up to: 4.4.2
+Tested up to: 4.7
 
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,13 @@ Example: `[lotroserver loc="us"]`
 This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
+
+### 1.3
+* Enables two (or more) lotro server widgets at the same time
+* Includes the settings and the functionality of the shortcode
+* Fixed some bugs and php warnings
+* Tested up to the new WP version 4.7
+* Did a lot of code review
 
 ### 1.2
 * Updated the server list, after the big world closure in late 2015
