@@ -35,7 +35,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * @return array 		Modified links
 	 */
 	function add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=display-lotro-server">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
+		$settings_link = '<a href="' . menu_page_url( 'display-lotro-server', false ) . '">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
   		array_push( $links, $settings_link );
   		return $links;
 	}
@@ -76,7 +76,7 @@ class LotroServerGUI extends DisplayLotroServer {
 			);
 		}
 	}
- 
+
  	/**
 	 * Under construction!
 	 * Function for ajax usage
@@ -84,17 +84,17 @@ class LotroServerGUI extends DisplayLotroServer {
 	function reset_settings_ajax() {
  		global $DLS;
 	    $nonce = $_POST['resetSettingsNonce'];
-	 
+
 	    if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
 	        die( 'Cheating!');
-	 
+
 	    // ignore the request if the current user doesn't have
 	    // sufficient permissions
 	    if ( current_user_can( 'manage_options' ) ) {
 
 	    	delete_option($this->optiontag);
 	 		$new = array_replace($DLS->options, $DLS->defaults);
-	 		if( is_array($new) ) {	 			
+	 		if( is_array($new) ) {
 	 			$success = __('Your settings are now on default.', 'DLSlanguage');
 	 		} else {
 	 			$success = __('Something went wrong! Please contact the plugin developer.', 'DLSlanguage');
@@ -102,7 +102,7 @@ class LotroServerGUI extends DisplayLotroServer {
 
 	        // generate the response
 	        $response = json_encode( $success );
-	 
+
 	        // response output
 	        header( "Content-Type: application/json" );
 	        echo $response;
@@ -130,7 +130,6 @@ class LotroServerGUI extends DisplayLotroServer {
 		global $DLS;
 ?>
 <div class="wrap">
-	<?php settings_errors(); ?>
 	<h2><?php _e( 'Display Lotro Server: Settings', 'DLSlanguage' ); ?></h2>
 	<?php _e( 'Set up the plugin here. <em>Important: Choose at least one server, otherwiese nothing will be displayed.</em>', 'DLSlanguage' ); ?>
 <div id="poststuff">
