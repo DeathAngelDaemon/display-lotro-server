@@ -203,10 +203,10 @@ class LotroServerGUI extends DisplayLotroServer {
 				<div class="inside">
 				<p><strong><?php _e('Version', 'DLSlanguage'); ?>:</strong> <?php echo DLS_VERSION; ?></p>
 				<p><strong><?php _e('Description', 'DLSlanguage'); ?>:</strong><br>
-					<?php _e('Choose the servers from the lists, which you want to show up on the frontend. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
+					<?php _e('Choose the servers from the lists, which you want to show up on your site. You can select all EU or all US servers, but you can also choose only DE, EN or FR servers - in combination with the US servers. Everything is possible!', 'DLSlanguage'); ?>
 				</p><p>
 				<strong><?php _e('Widget', 'DLSlanguage'); ?>:</strong><br>
-					<?php _e('You can use the <em>Display Lotro Server Status Widget</em> to show up your chosen servers in a sidebar. The widget also allows you to choose if you want to show only the EU or the US servers you have checked here (e.g. if you want to insert two widgets for each region).', 'DLSlanguage'); ?>
+					<?php _e('You can use the widget <em>Status of the Lotro Server</em> to show up your chosen servers in a sidebar. The widget also allows you to choose if you want to show only the EU or the US servers you have checked here (e.g. if you want to insert two widgets for each region).', 'DLSlanguage'); ?>
 				</p>
 				</div>
 			</div>
