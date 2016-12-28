@@ -45,8 +45,6 @@ class LotroServerGUI extends DisplayLotroServer {
 	**/
 	function lotroserver_admin_init() {
 		register_setting( $this->optionsection, $this->optiontag, array( $this, 'dls_options_validate' ) );
-    // add_settings_section('lotroserver_shortcode_options', __('Shortcode', 'DLSlanguage'),  array( 'LotroServerGUI', 'shortcode_section_text' ), parent::$optionsection);
-    // add_settings_field(	'choice_shortcode', __( 'Do you want to use the shortcode for posts and pages?', 'DLSlanguage' ), array( 'LotroServerGUI', 'check_shortcode_callback' ), parent::$optionsection, 'lotroserver_shortcode_options', array( 'label_for' => 'choice_shortcode' ) );
 	}
 
 	/**
@@ -83,16 +81,15 @@ class LotroServerGUI extends DisplayLotroServer {
 	 */
 	function reset_settings_ajax() {
  		global $DLS;
-	    $nonce = $_POST['resetSettingsNonce'];
+    $nonce = $_POST['resetSettingsNonce'];
 
-	    if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
-	        die( 'Cheating!');
+    if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
+      die( 'Cheating!');
 
-	    // ignore the request if the current user doesn't have
-	    // sufficient permissions
-	    if ( current_user_can( 'manage_options' ) ) {
-
-	    	delete_option($this->optiontag);
+    // ignore the request if the current user doesn't have
+    // sufficient permissions
+    if ( current_user_can( 'manage_options' ) ) {
+    	delete_option($this->optiontag);
 	 		$new = array_replace($DLS->options, $DLS->defaults);
 	 		if( is_array($new) ) {
 	 			$success = __('Your settings are now on default.', 'DLSlanguage');
@@ -100,15 +97,15 @@ class LotroServerGUI extends DisplayLotroServer {
 	 			$success = __('Something went wrong! Please contact the plugin developer.', 'DLSlanguage');
 	 		}
 
-	        // generate the response
-	        $response = json_encode( $success );
+      // generate the response
+      $response = json_encode( $success );
 
-	        // response output
-	        header( "Content-Type: application/json" );
-	        echo $response;
-	    }
+      // response output
+      header( "Content-Type: application/json" );
+      echo $response;
+    }
 
-	    exit;
+    exit;
 	}
 
 	/**
@@ -138,6 +135,13 @@ class LotroServerGUI extends DisplayLotroServer {
 		<?php wp_nonce_field( 'save_serveroptions', '_wpnonce-lotroserver' ); ?>
 		<?php settings_fields($this->optionsection); ?>
 	<div id="post-body-content">
+    <h3><?php _e('General settings', 'DLSlanguage'); ?>:</h3>
+    <ul>
+      <li>
+        <label for="choice_shortcode"><?php _e('Do you want to use the shortcode?', 'DLSlanguage'); ?></label>
+        <input type="checkbox" id="choice_shortcode" name="<?php echo $this->optiontag.'[shortcode]' ?>" value="1" <?php (!isset($DLS->options['shortcode'])) ?: checked($DLS->options['shortcode'], 1); ?> />
+      </li>      
+    </ul>
 		<div class="leftside">
 		<h3><?php _e('EU server choice', 'DLSlanguage'); ?>:</h3>
 		<div class="desc">
@@ -164,9 +168,7 @@ class LotroServerGUI extends DisplayLotroServer {
 				<input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[EU]['.$servername.']'; ?>" value="1" <?php (!isset($DLS->options['EU'][$servername])) ?: checked($DLS->options['EU'][$servername], 1); ?> />
 				<input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
 			</li>
-		<?php
-		}
-		?>
+  		<?php	}	?>
 		</ul>
 		</div>
 		<div class="rightside">

@@ -56,7 +56,7 @@ class DisplayLotroServer {
 		$this->defaults = array(
 			'EU' => array_combine($this->serverslistEU, $euNull),
 			'US' => array_combine($this->serverslistUS, $usNull),
-			'shortcode' => true,
+			'shortcode' => 1,
 			'version' => DLS_VERSION
 		);
 		$this->dataServerArray = $this->get_datacenter_result();
