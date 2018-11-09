@@ -4,7 +4,7 @@
  * Plugin URI: https://hdro.blog/wordpress-plugin-display-lotro-server/
  * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
- * Version: 1.3
+ * Version: 1.4
  *
  * Author: Anna Fischer
  * Author URI: https://hdro.blog/
@@ -13,7 +13,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-define( 'DLS_VERSION', '1.3' );
+define( 'DLS_VERSION', '1.4' );
 
 if ( !defined( 'DLS_PATH' ) )
 	define( 'DLS_PATH', plugin_dir_path( __FILE__ ) );
@@ -97,9 +97,9 @@ class DisplayLotroServer {
 	 */
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '4.3', '<')) {
+		if (version_compare(PHP_VERSION, '5.6.0', '<') && version_compare($wp_version, '4.3', '<')) {
 			deactivate_plugins(DLS_BASENAME); // Deactivate ourself
-			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.5 or higher.'));
+			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.6 or higher and Wordpress version 3.5 or higher.'));
 			return;
 		}
 	}
