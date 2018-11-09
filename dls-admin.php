@@ -165,7 +165,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	    <ul id="eu-server">
 	    <?php
 	    foreach($this->serverslistEU as $servername) {
-	    	$rpg = ($servername === 'Belegaer' || $servername === 'Laurelin' || $servername === 'Estel') ? ' - RP' : '';
+	    	$rpg = ($servername === 'Belegaer' || $servername === 'Laurelin') ? ' - RP' : '';
 	    	?>
 	    	<li>
 				<label for="choice_<?php echo strtolower($servername); ?>">
