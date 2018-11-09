@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Display Lotro Server
- * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
+ * Plugin URI: https://hdro.blog/wordpress-plugin-display-lotro-server/
  * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
  * Version: 1.3
  *
  * Author: Anna Fischer
- * Author URI: http://hdroblog.anna-fischer.info/
+ * Author URI: https://hdro.blog/
  *
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
