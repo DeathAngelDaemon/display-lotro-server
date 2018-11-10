@@ -45,8 +45,8 @@ class DisplayLotroServer {
 	 */
 	function __construct() {
 		// Activation hook
-  	register_activation_hook( __FILE__, array( $this, 'activate' ) );
-  	// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
+  		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+  		// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
 
     	// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
@@ -69,8 +69,13 @@ class DisplayLotroServer {
 			unset( $this->options[0] );
 		}
 
-		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
+		if( isset( $this->options['shortcode'] ) && $this->options['shortcode'] === 1) {
+			add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
+		} else {
+			remove_shortcode( 'lotroserver' );
+		}
 
+		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 	}
 
 	/**

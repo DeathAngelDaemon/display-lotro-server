@@ -120,12 +120,7 @@ class LotroServerGUI extends DisplayLotroServer {
     }
 
     if( isset($input['shortcode']) ) {
-      $input['shortcode'] = intval($input['shortcode']);
-      if( isset( $input['shortcode'] ) && $input['shortcode'] === 1) {
-        add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
-      } else {
-        remove_shortcode( 'lotroserver' );
-      }
+      $input['shortcode'] = intval($input['shortcode']);      
     }
 
 		return $input;
