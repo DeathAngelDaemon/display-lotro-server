@@ -1,19 +1,19 @@
 <?php
 /**
  * Plugin Name: Display Lotro Server
- * Plugin URI: http://hdroblog.anna-fischer.info/wordpress-plugin-display-lotro-server/
+ * Plugin URI: https://hdro.blog/wordpress-plugin-display-lotro-server/
  * Description: Shows a server list of the choosen servers (see the settings). Can be placed as a widget or a shortcode in every article or page.
  *
- * Version: 1.3
+ * Version: 1.4
  *
  * Author: Anna Fischer
- * Author URI: http://hdroblog.anna-fischer.info/
+ * Author URI: https://hdro.blog/
  *
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-define( 'DLS_VERSION', '1.3' );
+define( 'DLS_VERSION', '1.4' );
 
 if ( !defined( 'DLS_PATH' ) )
 	define( 'DLS_PATH', plugin_dir_path( __FILE__ ) );
@@ -45,8 +45,8 @@ class DisplayLotroServer {
 	 */
 	function __construct() {
 		// Activation hook
-  	register_activation_hook( __FILE__, array( $this, 'activate' ) );
-  	// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
+  		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+  		// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
 
     	// Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
@@ -59,7 +59,7 @@ class DisplayLotroServer {
 			'shortcode' => 0,
 			'version' => DLS_VERSION
 		);
-		$this->dataServerArray = $this->get_datacenter_result();
+		$this->dataServerArray = $this->get_cached_datacenter();
 
 		$this->check_options();
 		$this->options = get_option( $this->optiontag );
@@ -69,8 +69,13 @@ class DisplayLotroServer {
 			unset( $this->options[0] );
 		}
 
-		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
+		if( isset( $this->options['shortcode'] ) && $this->options['shortcode'] === 1) {
+			add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
+		} else {
+			remove_shortcode( 'lotroserver' );
+		}
 
+		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 	}
 
 	/**
@@ -97,9 +102,9 @@ class DisplayLotroServer {
 	 */
 	function activate() {
 		global $wp_version;
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && version_compare($wp_version, '4.3', '<')) {
+		if (version_compare(PHP_VERSION, '5.6.0', '<') && version_compare($wp_version, '4.3', '<')) {
 			deactivate_plugins(DLS_BASENAME); // Deactivate ourself
-			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.3 or higher and Wordpress version 3.5 or higher.'));
+			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.6 or higher and Wordpress version 4.3 or higher.'));
 			return;
 		}
 	}
@@ -168,6 +173,16 @@ class DisplayLotroServer {
 		    fclose($fp);
 		    return $this->status[1];
 		}
+	}
+
+	function get_cached_datacenter() {
+		if ( false === ( $dls_datacenter_result = get_transient( 'dls_datacenter_result' ) ) ) {
+			// It wasn't there, so regenerate the data and save the transient
+			$dls_datacenter_result = $this->get_datacenter_result();
+			set_transient( 'dls_datacenter_result', $dls_datacenter_result, 7 * DAY_IN_SECONDS );
+		}
+
+		return $dls_datacenter_result;
 	}
 
 	/**
