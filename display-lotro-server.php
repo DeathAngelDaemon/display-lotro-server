@@ -104,7 +104,7 @@ class DisplayLotroServer {
 		global $wp_version;
 		if (version_compare(PHP_VERSION, '5.6.0', '<') && version_compare($wp_version, '4.3', '<')) {
 			deactivate_plugins(DLS_BASENAME); // Deactivate ourself
-			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.6 or higher and Wordpress version 3.5 or higher.'));
+			wp_die(__('Sorry, but you can\'t run this plugin, it requires PHP 5.6 or higher and Wordpress version 4.3 or higher.'));
 			return;
 		}
 	}
