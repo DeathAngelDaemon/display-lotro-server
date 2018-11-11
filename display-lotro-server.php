@@ -59,7 +59,7 @@ class DisplayLotroServer {
 			'shortcode' => 0,
 			'version' => DLS_VERSION
 		);
-		$this->dataServerArray = $this->get_datacenter_result();
+		$this->dataServerArray = $this->get_cached_datacenter();
 
 		$this->check_options();
 		$this->options = get_option( $this->optiontag );
@@ -173,6 +173,16 @@ class DisplayLotroServer {
 		    fclose($fp);
 		    return $this->status[1];
 		}
+	}
+
+	function get_cached_datacenter() {
+		if ( false === ( $dls_datacenter_result = get_transient( 'dls_datacenter_result' ) ) ) {
+			// It wasn't there, so regenerate the data and save the transient
+			$dls_datacenter_result = $this->get_datacenter_result();
+			set_transient( 'dls_datacenter_result', $dls_datacenter_result, 7 * DAY_IN_SECONDS );
+		}
+
+		return $dls_datacenter_result;
 	}
 
 	/**
