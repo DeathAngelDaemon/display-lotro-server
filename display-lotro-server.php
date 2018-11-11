@@ -179,7 +179,7 @@ class DisplayLotroServer {
 		if ( false === ( $dls_datacenter_result = get_transient( 'dls_datacenter_result' ) ) ) {
 			// It wasn't there, so regenerate the data and save the transient
 			$dls_datacenter_result = $this->get_datacenter_result();
-			set_transient( 'dls_datacenter_result', $dls_datacenter_result, 7 * DAY_IN_SECONDS );
+			set_transient( 'dls_datacenter_result', $dls_datacenter_result, 24 * HOUR_IN_SECONDS );
 		}
 
 		return $dls_datacenter_result;
@@ -199,14 +199,23 @@ class DisplayLotroServer {
 		$bullroarerUrl = 'http://gls-bullroarer.lotro.com/GLS.DataCenterServer/Service.asmx?WSDL';
 
 		if( $this->is_domain_available($datacenterUrl) || $this->is_domain_available($bullroarerUrl) ) {
-			$client = new SoapClient($datacenterUrl);
-			$result = $client->GetDatacenters( array( 'game' => 'LOTRO' ) );
-			$dataArray = $result->GetDatacentersResult->Datacenter->Worlds->World;
+			try {
+				$client = new SoapClient($datacenterUrl);
+				$result = $client->GetDatacenters( array( 'game' => 'LOTRO' ) );
+				$dataArray = $result->GetDatacentersResult->Datacenter->Worlds->World;
 
-			if(isset($this->options['US']['Bullroarer']) && $this->options['US']['Bullroarer'] === '1') {
-				$clientB = new SoapClient($bullroarerUrl);
-				$resultB = $clientB->GetDatacenters( array( 'game' => 'LOTRO' ) );
-				$dataArray[] = $resultB->GetDatacentersResult->Datacenter->Worlds->World;
+				if(isset($this->options['US']['Bullroarer']) && $this->options['US']['Bullroarer'] === '1') {
+					$clientB = new SoapClient($bullroarerUrl);
+					$resultB = $clientB->GetDatacenters( array( 'game' => 'LOTRO' ) );
+					$dataArray[] = $resultB->GetDatacentersResult->Datacenter->Worlds->World;
+				}
+			} catch(Exception $e) {
+				$logdir = DLS_PATH.'logs/';
+				if(!is_dir($logdir)) mkdir($logdir);
+				$file = 'log_'.date('Y-m-d').'.txt';
+				$content = "[".date('Y-m-d')."] Error when trying to get lotro server information. Following message occured: ".$e->getMessage();
+				file_put_contents($logdir.$file, $content, FILE_APPEND | LOCK_EX);
+				return $dataArray;
 			}
 
 			return $dataArray;
