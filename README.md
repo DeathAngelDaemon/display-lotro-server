@@ -38,6 +38,14 @@ This will show only the US-servers you have checked in the configuration.
 
 ### Changelog
 
+### 1.4
+
+* fixes shortcode implementation
+* add caching for datacenter request
+* fixes issue #4 (catch exception when datacenter is not available)
+* a bit of cleanup and translation update
+* tested up to WP version 4.9.8
+
 ### 1.3
 * Enables two (or more) lotro server widgets at the same time
 * Includes the settings and the functionality of the shortcode
