@@ -36,8 +36,8 @@ class LotroServerGUI extends DisplayLotroServer {
 	 */
 	function add_settings_link( $links ) {
 		$settings_link = '<a href="' . menu_page_url( 'display-lotro-server', false ) . '">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
-  		array_push( $links, $settings_link );
-  		return $links;
+    array_push( $links, $settings_link );
+    return $links;
 	}
 
 	/**
@@ -83,6 +83,7 @@ class LotroServerGUI extends DisplayLotroServer {
  		global $DLS;
     $nonce = $_POST['resetSettingsNonce'];
 
+		// verify the wordpress nonce to avoid security risks
     if ( ! wp_verify_nonce( $nonce, 'dlsajax-reset-settings-nonce' ) )
       die( 'Cheating!');
 

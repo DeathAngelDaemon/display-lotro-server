@@ -45,12 +45,12 @@ class DisplayLotroServer {
 	 */
 	function __construct() {
 		// Activation hook
-  		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-  		// register_deactivation_hook( __FILE__, array( 'DisplayLotroServer', 'deactivate' ) );
+  	register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
-    	// Load language file
+    // Load language file
 		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
 
+		// define server arrays for later use
 		$euNull = array_fill(0, 5, '0');
 		$usNull = array_fill(0, 5, '0');
 		$this->defaults = array(
@@ -59,8 +59,11 @@ class DisplayLotroServer {
 			'shortcode' => 0,
 			'version' => DLS_VERSION
 		);
+
+		// get the information about the datacenters
 		$this->dataServerArray = $this->get_cached_datacenter();
 
+		// prepare the options for later use
 		$this->check_options();
 		$this->options = get_option( $this->optiontag );
 
@@ -75,6 +78,7 @@ class DisplayLotroServer {
 			remove_shortcode( 'lotroserver' );
 		}
 
+		// initialize the plugin once it will be loaded
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 	}
 
@@ -99,6 +103,7 @@ class DisplayLotroServer {
 
 	/**
 	 * Activation of the plugin
+	 * Make sure the right version of PHP and Wordpress is used!
 	 */
 	function activate() {
 		global $wp_version;
@@ -164,7 +169,6 @@ class DisplayLotroServer {
 	function get_server_status($site) {
 		$fp = stream_socket_client('udp://'.$site, $errno, $errstr, 0.1);
 		if (!$fp) {
-			// echo "ERROR: $errno - $errstr<br />\n";
 		    return $this->status[0];
 		} else {
 		    fwrite($fp, "\n");
@@ -175,6 +179,12 @@ class DisplayLotroServer {
 		}
 	}
 
+	/**
+	 * Get the datacenter result from the cache.
+	 * Or put it to the cache otherwise.
+	 * 
+	 * @return the datacenter result
+	 */
 	function get_cached_datacenter() {
 		if ( false === ( $dls_datacenter_result = get_transient( 'dls_datacenter_result' ) ) ) {
 			// It wasn't there, so regenerate the data and save the transient
@@ -362,7 +372,7 @@ class DisplayLotroServer {
 			'loc' => 'all'
 		), $atts));
 
-	   return $this->show_serverlist($loc);
+	  return $this->show_serverlist($loc);
 	}
 
 }
@@ -379,7 +389,6 @@ require_once('dls-widget.php');
 *
 * @since 0.9.8
 */
-
 function lotroserver_register_widgets() {
 	register_widget( 'LotroServerWidget' );
 }
