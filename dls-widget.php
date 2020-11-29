@@ -66,23 +66,7 @@ class LotroServerWidget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = (isset($instance['title'])) ? $instance['title'] : __('Lotro server list', 'DLSlanguage');
-		$locEU = (isset($instance['loc_eu'])) ? $instance['loc_eu'] : 0;
-		$locUS = (isset($instance['loc_us'])) ? $instance['loc_us'] : 0;
-		?>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'DLSlanguage' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-		<p>
-			<?php _e( 'Only show servers from specific location', 'DLSlanguage' ) ?><br />
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_eu'); ?>" name="<?php echo $this->get_field_name('loc_eu'); ?>" <?php checked( $locEU, 1 ); ?> />
-			<label for="<?php echo $this->get_field_id('loc_eu'); ?>"><?php _e( 'EU server', 'DLSlanguage' ) ?></label>
-			<br />
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('loc_us'); ?>" name="<?php echo $this->get_field_name('loc_us'); ?>" <?php checked( $locUS, 1 ); ?> />
-			<label for="<?php echo $this->get_field_id('loc_us'); ?>"><?php _e( 'US server', 'DLSlanguage' ) ?></label>
-		</p>
-		<?php
+		require_once('inc/dls-widget-display.php');
 	}
 
 } ?>
