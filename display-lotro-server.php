@@ -43,12 +43,12 @@ class DisplayLotroServer {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		// Activation hook
   	register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
     // Load language file
-		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
+		$this->set_locale();
 
 		// define server arrays for later use
 		$euNull = array_fill(0, 5, '0');
@@ -72,11 +72,8 @@ class DisplayLotroServer {
 			unset( $this->options[0] );
 		}
 
-		if( isset( $this->options['shortcode'] ) && $this->options['shortcode'] === 1) {
-			add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
-		} else {
-			remove_shortcode( 'lotroserver' );
-		}
+		// add/remove the shortcode - depending on the options
+		$this->activate_shortcode();
 
 		// initialize the plugin once it will be loaded
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
@@ -85,7 +82,7 @@ class DisplayLotroServer {
 	/**
 	 * Initialisation of the plugin
 	 */
-	function init() {
+	private function init() {
 		// plugin upgrade
 		if ($this->options && version_compare($this->options['version'], DLS_VERSION, '<')) {
 			return 'You have to upgrade the plugin.';
@@ -115,11 +112,18 @@ class DisplayLotroServer {
 	}
 
 	/**
+	 * Set the textdomain to use language specific files for the plugin.
+	 */
+	private function set_locale() {
+		load_plugin_textdomain( 'DLSlanguage', false, dirname( DLS_BASENAME ) . '/languages/' );
+	}
+
+	/**
    * Checks the optiontag and possibly set the default options
    *
    * @since 1.0
    */
-  function check_options() {
+  private function check_options() {
     	// check to see if option already present
 		if( get_option( $this->optiontag ) === false ) {
 			// Adds an option for saving the settings
@@ -131,7 +135,19 @@ class DisplayLotroServer {
 			$new_op = wp_parse_args( $old_op, $this->defaults );
 			update_option( $this->optiontag, $new_op );
 		}
-  }
+	}
+	
+	/**
+	 * Check if the option for the shortcode is set and add it to the Wordpress logic.
+	 * Otherwise remove it.
+	 */
+	private function activate_shortcode() {
+		if( isset( $this->options['shortcode'] ) && $this->options['shortcode'] === 1) {
+			add_shortcode( 'lotroserver', array( $this, 'lotroserver_shortcode' ) );
+		} else {
+			remove_shortcode( 'lotroserver' );
+		}
+	}
 
     /**
 	* helperfunction
@@ -140,7 +156,7 @@ class DisplayLotroServer {
 	* @return true/false if domain is available or not
 	* @since 0.9.5
 	**/
-	function is_domain_available ( $strDomain ) {
+	private function is_domain_available ( $strDomain ) {
 		$rCurlHandle = curl_init ( $strDomain );
 
 		curl_setopt ( $rCurlHandle, CURLOPT_CONNECTTIMEOUT, 10 );
@@ -166,7 +182,7 @@ class DisplayLotroServer {
 	* @return gives back 'ONLINE' or 'OFFLINE'
 	* @since 1.0
 	**/
-	function get_server_status($site) {
+	private function get_server_status($site) {
 		$fp = stream_socket_client('udp://'.$site, $errno, $errstr, 0.1);
 		if (!$fp) {
 		    return $this->status[0];
@@ -185,7 +201,7 @@ class DisplayLotroServer {
 	 * 
 	 * @return the datacenter result
 	 */
-	function get_cached_datacenter() {
+	private function get_cached_datacenter() {
 		if ( false === ( $dls_datacenter_result = get_transient( 'dls_datacenter_result' ) ) ) {
 			// It wasn't there, so regenerate the data and save the transient
 			$dls_datacenter_result = $this->get_datacenter_result();
@@ -201,7 +217,7 @@ class DisplayLotroServer {
 	* @return $array contains all the needed server information
 	* @since 1.0
 	**/
-	function get_datacenter_result() {
+	private function get_datacenter_result() {
 
 		$dataArray = array();
 
@@ -240,7 +256,7 @@ class DisplayLotroServer {
 	* @return gives back an array of server/ip/status or a string when Lotro DataCenter isn't available
 	* @since 1.0
 	**/
-	function get_serverlist($sa) {
+	private function get_serverlist($sa) {
 
 		$serverlist = array();
 
@@ -282,7 +298,7 @@ class DisplayLotroServer {
 	* @return returns html, a list with the given servers and there status or an error message
 	* @since 0.9
 	**/
-	function show_serverlist($location='all') {
+	public function show_serverlist($location='all') {
 
     // loop through the options and check which server was selected
 		foreach( $this->options as $server ) {
@@ -363,7 +379,7 @@ class DisplayLotroServer {
 	* @return gives back the serverlist
 	* @since 0.9
 	**/
-	function lotroserver_shortcode($atts) {
+	private function lotroserver_shortcode($atts) {
 		/*
 		 * extract the attributes into variables
 		 * loc = can be 'eu' or 'us' to show the specified serves
@@ -377,13 +393,12 @@ class DisplayLotroServer {
 
 }
 
+// instantiate the plugin class
 if(class_exists('DisplayLotroServer')) {
-    // instantiate the plugin class
     $DLS = new DisplayLotroServer();
 }
 
 require_once('dls-widget.php');
-
 /**
 * Function to register the Widget
 *

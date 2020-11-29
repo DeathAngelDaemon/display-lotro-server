@@ -19,7 +19,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	/**
 	 * Class constructor, which basically only hooks the init function on the init hook
 	 */
-	function __construct() {
+	public function __construct() {
 		// Add admin settings and admin menu
     add_action( 'admin_init', array( $this, 'lotroserver_admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
@@ -34,7 +34,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * @param  array $links Existing links
 	 * @return array 		Modified links
 	 */
-	function add_settings_link( $links ) {
+	private function add_settings_link( $links ) {
 		$settings_link = '<a href="' . menu_page_url( 'display-lotro-server', false ) . '">' . __( 'Settings', 'DLSlanguage' ) . '</a>';
     array_push( $links, $settings_link );
     return $links;
@@ -43,7 +43,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	/**
 	* Register the settings and validation method to save the options.
 	**/
-	function lotroserver_admin_init() {
+	private function lotroserver_admin_init() {
 		register_setting( $this->optionsection, $this->optiontag, array( $this, 'dls_options_validate' ) );
 	}
 
@@ -51,14 +51,14 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * Add settings page to admin menu
 	 * @return void
 	 */
-	function add_settings_page() {
+	private function add_settings_page() {
 		add_options_page( __('Settings: Display Lotro Server', 'DLSlanguage'), __('Display Lotro Server', 'DLSlanguage'), 'manage_options', 'display-lotro-server',  array( $this, 'build_options_page_html' ) );
 	}
 
 	/**
 	 * Loads the required styles for the config page.
 	 */
-	function config_page_styles() {
+	private function config_page_styles() {
 		global $pagenow;
 		if ( $pagenow == 'options-general.php' && isset( $_GET['page'] ) && $_GET['page'] === 'display-lotro-server' ) {
 			wp_register_style( 'dls-admin-css', plugins_url( 'css/admin-style.css', __FILE__ ), array(), DLS_VERSION );
@@ -79,7 +79,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	 * Under construction!
 	 * Function for ajax usage
 	 */
-	function reset_settings_ajax() {
+	public function reset_settings_ajax() {
  		global $DLS;
     $nonce = $_POST['resetSettingsNonce'];
 
@@ -115,7 +115,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	 *
 	 * @return array/string $input the option which will be saved here
 	 */
-	function dls_options_validate($input) {
+	private function dls_options_validate($input) {
 		if ( ! check_admin_referer( 'save_serveroptions', '_wpnonce-lotroserver' ) ) {
       die( 'Cheating!');
     }
