@@ -130,7 +130,7 @@ class LotroServerGUI extends DisplayLotroServer {
 	/**
 	* Load the HTML for the admin page
 	**/
-	function build_options_page_html() {
+	private function build_options_page_html() {
 		global $DLS;
 ?>
 <div class="wrap">
