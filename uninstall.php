@@ -1,5 +1,6 @@
 <?php
 
+/* security request */
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) 
     exit();
 
