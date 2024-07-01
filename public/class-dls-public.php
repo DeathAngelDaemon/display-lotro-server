@@ -54,7 +54,7 @@ class DisplayLotroServer_Public {
 		foreach( $this->options as $server ) {
 			if( is_array($server) ) {
 				foreach( $server as $name => $value ) {
-					if( $value === '1' ) {
+					if( 1 === intval($value) ) {
 						$optionsarray[] = $name;
 					}
 				}
@@ -62,7 +62,7 @@ class DisplayLotroServer_Public {
 		}
 
     // check if the options array exists and is not empty (otherwise no options were set)
-		if(empty($optionsarray) || !isset($optionsarray)) {
+		if( !isset($optionsarray) || empty($optionsarray) ) {
 			return __('There are no servers to show. Please check your settings and choose at least one server.', 'DLSlanguage');
 		}
 
@@ -140,7 +140,7 @@ class DisplayLotroServer_Public {
 			'loc' => 'all'
 		), $atts));
 
-	   return $this->show_serverlist($loc);
+	  return $this->show_serverlist($loc);
 	}
 
 }

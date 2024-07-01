@@ -17,7 +17,7 @@ class DisplayLotroServer_Deactivator {
 	 * @since    2.0.0
 	 */
 	public static function deactivate() {
-
+		delete_transient( 'dls_datacenter_result' );
 	}
 
 }

@@ -72,11 +72,12 @@ class DisplayLotroServer {
 			'version' => DLS_VERSION
 		);
 
-		$this->load_dependencies();
-		$this->set_locale();
-
     // define and get options
     $this->define_options();
+
+		// load dependencies & translation stuff
+		$this->load_dependencies();
+		$this->set_locale();
 
     // define shortcode & widget
     $this->define_shortcode();

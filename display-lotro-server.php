@@ -53,7 +53,7 @@ if ( !defined( 'DLS_BASENAME' ) )
  * Define the path to the images folder.
  */
 if ( !defined( 'DLS_IMAGES_URL' ) )
-	define( 'DLS_IMAGES_URL', trailingslashit( plugin_dir_url( __FILE__ ) . 'img' ) );
+	define( 'DLS_IMAGES_URL', trailingslashit( plugin_dir_url( __FILE__ ) . 'public/img' ) );
 
 /**
  * The code that runs during plugin activation.
