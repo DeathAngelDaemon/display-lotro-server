@@ -46,7 +46,10 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 		register_setting( 
 			$this->optionsection, 
 			$this->optiontag, 
-			array( $this, 'dls_options_validate' ) 
+			array(
+				'type' => 'array',
+				'sanitize_callback' => array( $this, 'dls_options_validate' )
+			) 
 		);
 	}
 
@@ -81,32 +84,94 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 	}
 
 	/**
-	 * Under construction!
-	 * Validate function to sanitize text fields or textareas
+	 * Validate function to sanitize text fields, textareas or checkboxes.
+	 * This function is called upon update_option().
 	 *
 	 * @return array/string $input the option which will be saved here
 	 */
 	public function dls_options_validate($input) {
-		if ( ! check_admin_referer( 'update' ) ) {
-      die( 'Cheating!');
-    }
 
-    if( isset($input['shortcode']) ) {
-      $input['shortcode'] = intval($input['shortcode']);      
-    }
+		if( isset( $input['EU'] ) ) {
+			foreach($input['EU'] as $key => $value) {
+				if( isset( $input['EU'][$key] ) ) {
+					$input['EU'][$key] = absint($value);
+				}
+			}
+		}
+
+		if( isset( $input['US'] ) ) {
+			foreach($input['US'] as $key => $value) {
+				if( isset( $input['US'][$key] ) ) {
+					$input['US'][$key] = absint($value);
+				}
+			}
+		}
+
+		if( isset( $input['shortcode'] ) ) {
+			$input['shortcode'] = absint( $input['shortcode'] );
+		}
 
 		return $input;
+
+	}
+
+	/**
+	 * Function to handle form fields and update the options.
+	 * Show success message at the end.
+	 * 
+	 * @since		2.0.0
+	 */
+	public function dls_update_options($form) {
+
+		if( isset( $form['shortcode'] ) && $form['shortcode'] !== $this->options['shortcode'] ) {
+      $this->options['shortcode'] = $form['shortcode'];
+    }
+
+		if( isset( $form['EU'] ) ) {
+			$this->options['EU'] = wp_parse_args( $form['EU'], $this->options['EU'] );
+    }
+
+		if( isset( $form['US'] ) ) {
+			$this->options['US'] = wp_parse_args( $form['US'], $this->options['US'] );
+    }
+
+		// if no field is set the $form param will be null
+		// reset to default values in this case
+		if( NULL === $form ) {
+			$old_op = get_option( $this->optiontag );
+      $new_op = wp_parse_args( $old_op, $this->defaults );
+      update_option( $this->optiontag, $new_op );
+		} else {
+			// actually trigger the update of options
+			update_option(
+				$this->optiontag,
+				$this->options
+			);
+		}
+
+		// add success message
+		add_settings_error( 'dls_messages', 'dls_message', __( 'Settings Saved', 'DLSLanguage' ), 'success' );
 	}
 
 	/**
 	 * Load the HTML for the admin page
 	 * 
-	 * @since 1.0.0
+	 * @since		1.0.0
+	 * @since		2.0.0		Added handling for form submit and options update.
 	 */
 	public function build_options_page_html() {
-		echo '<pre>';
-		echo var_dump($this->options);
-		echo '</pre>';
+		// check user capabilities
+    if ( ! current_user_can( 'manage_options' ) ) {
+      wp_die( "You do not have permission to view this page." );
+    }
+
+		// check if POST Request was done with right nonce
+		if ( isset( $_POST['action'] ) && $_POST['action'] === 'dls_post_options' ) {
+			if( ! check_admin_referer( 'dls_post_options', '_wpnonce_dls_options_verify' ) )
+				return;
+
+			$this->dls_update_options($_POST['lotroserver_options']);			
+		}
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/dls-admin-display.php';
 	}

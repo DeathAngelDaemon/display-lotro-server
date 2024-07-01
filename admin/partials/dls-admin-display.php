@@ -9,23 +9,26 @@
  * @package    DisplayLotroServer
  * @subpackage DisplayLotroServer/admin/partials
  */
+//menu_page_url( 'display-lotro-server' )
+// show error/update messages
+settings_errors( 'dls_messages' );
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap">
 	<h2><?php _e( 'Display Lotro Server: Settings', 'DLSlanguage' ); ?></h2>
 	<?php _e( 'Set up the plugin here. <em>Important: Choose at least one server, otherwiese nothing will be displayed.</em>', 'DLSlanguage' ); ?>
-  <?php settings_errors( 'dls_messages' ); ?>
   <div id="poststuff">
     <div id="post-body" class="metabox-holder columns-2">
-      <form method="post" action="options.php" class="dls-form">
-        <?php settings_fields($this->optionsection); ?>
+      <form method="post" action="" class="dls-form">
+        <input type="hidden" name="action" value="dls_post_options" />
+        <?php wp_nonce_field( 'dls_post_options', '_wpnonce_dls_options_verify'); ?>
         <div id="post-body-content">
           <h3><?php _e('General settings', 'DLSlanguage'); ?>:</h3>
           <ul>
             <li>
               <label for="choice_shortcode"><?php _e('Do you want to use the shortcode?', 'DLSlanguage'); ?></label>
-              <input type="checkbox" id="choice_shortcode" name="<?php echo $this->optiontag.'[shortcode]' ?>" value="1" <?php (!isset($this->options['shortcode'])) ?: checked($this->options['shortcode'], 1); ?> />
+              <input type="checkbox" id="choice_shortcode" name="<?php echo $this->optiontag.'[shortcode]' ?>" value="1" <?php checked( 1, $this->options['shortcode'] ); ?> />
             </li>
           </ul>
           <div class="leftside">
@@ -33,10 +36,7 @@
             <div class="desc">
               <?php _e('Choose the EU servers you want to show at the frontend.', 'DLSlanguage'); ?>
             </div>
-            <i class="fa fa-square-o fa-lg" id="eu_all" title="<?php _e('Select all EU servers', 'DLSlanguage'); ?>"></i> <?php _e('Select all EU servers', 'DLSlanguage'); ?><br>
-            <i class="fa fa-chevron-right" id="de_all" title="<?php _e('Select only DE servers', 'DLSlanguage'); ?>"> DE &nbsp;</i>
-            <i class="fa fa-chevron-right" id="en_all" title="<?php _e('Select only EN servers', 'DLSlanguage'); ?>"> EN &nbsp;</i>
-            <i class="fa fa-chevron-right" id="fr_all" title="<?php _e('Select only FR servers', 'DLSlanguage'); ?>"> FR &nbsp;</i>
+            <!-- <i class="fa fa-square-o fa-lg" id="eu_all" title="<?php _e('Select all EU servers', 'DLSlanguage'); ?>"></i> <?php _e('Select all EU servers', 'DLSlanguage'); ?><br>-->
             <ul id="eu-server">
             <?php
               foreach($this->serverslistEU as $servername) {
@@ -51,7 +51,7 @@
                     echo $servername;
                   ?>
                 </label>
-                <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[EU]['.$servername.']'; ?>" value="<?php echo $this->options['EU'][$servername]; ?>" <?php (!isset($this->options['EU'][$servername])) ?: checked($this->options['EU'][$servername], 1); ?> />
+                <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[EU]['.$servername.']'; ?>" value="1" <?php checked( 1, $this->options['EU'][$servername] ); ?> />
                 <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
               </li>
             <?php	}	?>
@@ -62,7 +62,7 @@
             <div class="desc">
               <?php _e('Choose the US servers you want to show at the frontend.', 'DLSlanguage'); ?>
             </div>
-            <i class="fa fa-square-o fa-lg" id="us_all" title="<?php _e('Select all US servers', 'DLSlanguage'); ?>"></i> <?php _e('Select all US servers', 'DLSlanguage'); ?><br>
+            <!-- <i class="fa fa-square-o fa-lg" id="us_all" title="<?php _e('Select all US servers', 'DLSlanguage'); ?>"></i> <?php _e('Select all US servers', 'DLSlanguage'); ?><br> -->
             <ul id="us-server">
             <?php
             foreach($this->serverslistUS as $servername) {
@@ -74,7 +74,7 @@
                     echo $servername;
                   ?>
                 </label>
-                <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[US]['.$servername.']'; ?>" value="1" <?php (!isset($this->options['US'][$servername])) ?: checked($this->options['US'][$servername], 1); ?> />
+                <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[US]['.$servername.']'; ?>" value="1" <?php checked( 1, $this->options['US'][$servername] ); ?> />
                 <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
               </li>
             <?php
