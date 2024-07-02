@@ -33,20 +33,35 @@ class DisplayLotroServer {
    */
   protected $plugin_public;
 
-  /**
-   * 
-   */
-  public
-		$options,
-		$defaults,
-		$optiontag = 'lotroserver_options',
-		$optionsection = 'serversection',
+	/**
+	 * Variables defining the server information.
+	 * 
+	 * @since 	1.0.0
+	 * @access	protected
+	 */
+	protected
 		$serverslistEU = array( 'Belegaer', 'Evernight', 'Gwaihir', 'Laurelin', 'Sirannon' ),
 		$serverslistUS = array( 'Arkenstone', 'Brandywine', 'Crickhollow', 'Gladden', 'Landroval'),
-    $serverDE = array( 'Belegaer', 'Gwaihir' ),
-    $serverEN = array( 'Evernight', 'Laurelin' ),
-    $serverFR = array( 'Sirannon' ),
-		$dataServerArray;
+		$serverDE = array( 'Belegaer', 'Gwaihir' ),
+		$serverEN = array( 'Evernight', 'Laurelin' ),
+		$serverFR = array( 'Sirannon' );
+
+  /**
+   * Variables defining options information.
+	 * 
+	 * @since		1.0.0
+   */
+  protected
+		$defaults,
+		$optiontag = 'lotroserver_options',
+		$optionsection = 'serversection';
+
+	/**
+	 * The options variable. Also used in other classes.
+	 * 
+	 * @since		1.0.0
+	 */
+	public $options;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -223,7 +238,7 @@ class DisplayLotroServer {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new DisplayLotroServer_Admin( $this->options );
+		$plugin_admin = new DisplayLotroServer_Admin( $this->options, $this->defaults );
 
     $this->loader->add_action( 'admin_init', $plugin_admin, 'lotroserver_admin_init' );
     $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_settings_page' );
@@ -260,13 +275,12 @@ class DisplayLotroServer {
 	 * Initialisation of the plugin
 	 */
 	public function init() {
+
 		// plugin upgrade
 		if ($this->options && version_compare($this->options['version'], DLS_VERSION, '<')) {
 			return 'You have to upgrade the plugin.';
 		}
 
-    // get cached datacenter array
-    //$this->dataServerArray = $this->get_cached_datacenter();
 	}
 
 	/**
@@ -276,16 +290,6 @@ class DisplayLotroServer {
 	 */
 	public function run() {
 		$this->loader->run();
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     2.0.0
-	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
 	}
 
 }

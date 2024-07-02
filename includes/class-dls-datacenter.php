@@ -186,7 +186,7 @@ class DisplayLotroServer_Datacenter {
 		    return $this->status[0];
 		} else {
 		    fwrite($fp, "\n");
-		    stream_set_timeout($fp, 0.1);
+		    stream_set_timeout($fp, 500);
 		    fread($fp, 26);
 		    fclose($fp);
 		    return $this->status[1];

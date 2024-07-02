@@ -20,10 +20,19 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 	 * The options array
 	 *
 	 * @since    2.0.0
-	 * @access   private
+	 * @access   public
 	 * @var      array    $options    The options of this plugin.
 	 */
 	public $options;
+
+	/**
+	 * The defaults array
+	 *
+	 * @since    2.0.0
+	 * @access   public
+	 * @var      array    $defaults    The default options of this plugin.
+	 */
+	public $defaults;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -31,9 +40,10 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 	 * @since    2.0.0
 	 * @param    string    $options     The options array.
 	 */
-	public function __construct( $options ) {
+	public function __construct( $options, $defaults ) {
 
 		$this->options = $options;
+		$this->defaults = $defaults;
 
 	}
 
@@ -123,31 +133,37 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 	 */
 	public function dls_update_options($form) {
 
+		echo "UPDATE OPTION";
+
 		if( isset( $form['shortcode'] ) && $form['shortcode'] !== $this->options['shortcode'] ) {
       $this->options['shortcode'] = $form['shortcode'];
     }
 
-		if( isset( $form['EU'] ) ) {
-			$this->options['EU'] = wp_parse_args( $form['EU'], $this->options['EU'] );
-    }
-
-		if( isset( $form['US'] ) ) {
-			$this->options['US'] = wp_parse_args( $form['US'], $this->options['US'] );
-    }
-
-		// if no field is set the $form param will be null
-		// reset to default values in this case
-		if( NULL === $form ) {
-			$old_op = get_option( $this->optiontag );
-      $new_op = wp_parse_args( $old_op, $this->defaults );
-      update_option( $this->optiontag, $new_op );
-		} else {
-			// actually trigger the update of options
-			update_option(
-				$this->optiontag,
-				$this->options
-			);
+		// set EU server options
+		foreach ($this->options['EU'] as $euServer) {
+			echo "EU server: " . $euServer;
+			if( isset( $form['EU'] ) ) {
+				$this->options['EU'][$euServer] = in_array($euServer, $form['EU']) ? 1 : 0;
+			} else {
+				$this->options['EU'][$euServer] = 0;
+			}
 		}
+
+		// set US server options
+		foreach ($this->options['US'] as $usServer) {
+			echo "US server: " . $usServer;
+			if( isset( $form['US'] ) ) {
+				$this->options['US'][$usServer] = in_array($usServer, $form['US']) ? 1 : 0;
+			} else {
+				$this->options['US'][$usServer] = 0;
+			}
+		}
+
+		// actually trigger the update of options
+		update_option(
+			$this->optiontag,
+			$this->options
+		);
 
 		// add success message
 		add_settings_error( 'dls_messages', 'dls_message', __( 'Settings Saved', 'DLSLanguage' ), 'success' );
@@ -170,7 +186,13 @@ class DisplayLotroServer_Admin extends DisplayLotroServer {
 			if( ! check_admin_referer( 'dls_post_options', '_wpnonce_dls_options_verify' ) )
 				return;
 
-			$this->dls_update_options($_POST['lotroserver_options']);			
+			// if the "lotroserver_options" do not exist (which is the case when every option is unchecked),
+			// reset to default settings
+			if( isset($_POST['lotroserver_options'])) {
+				$this->dls_update_options($_POST['lotroserver_options']);
+			} else {
+				update_option( $this->optiontag, $this->defaults );
+			}
 		}
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/dls-admin-display.php';

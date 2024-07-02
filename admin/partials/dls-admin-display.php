@@ -52,7 +52,7 @@ settings_errors( 'dls_messages' );
                   ?>
                 </label>
                 <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[EU]['.$servername.']'; ?>" value="1" <?php checked( 1, $this->options['EU'][$servername] ); ?> />
-                <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
+                <!-- <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>"> -->
               </li>
             <?php	}	?>
             </ul>
@@ -75,7 +75,7 @@ settings_errors( 'dls_messages' );
                   ?>
                 </label>
                 <input type="checkbox" id="choice_<?php echo strtolower($servername); ?>" name="<?php echo $this->optiontag.'[US]['.$servername.']'; ?>" value="1" <?php checked( 1, $this->options['US'][$servername] ); ?> />
-                <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>">
+                <!-- <input type="hidden" name="checkserver" class="checkserver" value="<?php echo $servername; ?>"> -->
               </li>
             <?php
             }
